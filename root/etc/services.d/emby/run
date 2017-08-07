@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bash
+
+exec \
+	s6-setuidgid abc /usr/bin/mono \
+	/usr/lib/emby/MediaBrowser.Server.Mono.exe \
+	-programdata /config -ffmpeg /usr/bin/ffmpeg \
+	-ffprobe /usr/bin/ffprobe
+

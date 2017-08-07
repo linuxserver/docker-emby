@@ -1,0 +1,24 @@
+	alsa-lib \
+	fontconfig \
+	freetype \
+	fribidi \
+	imagemagick \
+	libgomp \
+	librtmp \
+	libtheora \
+	libva \
+	libva-intel-driver \
+	libvorbis \
+	libvpx \
+	libwebp \
+	libxcb \
+	openjpeg \
+	opus \
+	soxr \
+	speex \
+	sqlite \
+	v4l-utils-libs \
+	x264 \
+	x264-libs \
+	x265 \
+	xvidcore && \
