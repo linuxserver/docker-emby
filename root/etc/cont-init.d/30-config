@@ -3,3 +3,8 @@
 # permissions
 chown -R abc:abc \
 	/config
+
+chown abc:abc \
+	/defaults/restart.sh
+chmod +x \
+	/defaults/restart.sh
