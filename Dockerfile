@@ -80,6 +80,7 @@ RUN \
 	soxr \
 	speex \
 	sqlite \
+	unzip \
 	v4l-utils-libs \
 	x264 \
 	x264-libs \
@@ -110,68 +111,35 @@ RUN \
  ./configure \
 	--disable-boehm \
 	--disable-libraries \
-	--disable-rpath \
-	--enable-minimal=debug \
-	--enable-parallel-mark \
 	--infodir=/opt/mono/share/info \
 	--localstatedir=/var \
 	--mandir=/opt/mono/share/man \
 	--prefix=/opt/mono \
-	--sysconfdir=/etc \
-	--with-mcs-docs=no \
-	--with-moonlight=no \
-	--without-sigaltstack \
-	--with-profile2=no \
-	--with-profile4_5=yes \
-	--with-profile4=no && \
+	--without-mcs-docs && \
  make && \
  make install && \
- install -D -m644 /tmp/patches/mono/mono.binfmt.d  /opt/mono/lib/binfmt.d/mono.conf && \
- sed -i \
-	-e "s:#Requires:Requires:" \
-	/opt/mono/lib/pkgconfig/mono.pc && \
- sed -i \
-	-e "s:/2.0/:/4.5/:g" \
-	/opt/mono/lib/pkgconfig/mono-nunit.pc && \
  find /opt/mono -name "*.so*" -exec strip --strip-unneeded {} \; && \
  strip /opt/mono/bin/mono || true && \
 
-# install referenceassemblies-pcl
- git clone https://github.com/directhex/xamarin-referenceassemblies-pcl /tmp/pcl && \
- cd /tmp/pcl && \
- git checkout $REFERENCEASSEMBLIES_COMMIT && \
- install -dm 755 /opt/mono/lib/mono/xbuild-frameworks/.NETPortable/ && \
- cp -dr --no-preserve='ownership' v4.* /opt/mono/lib/mono/xbuild-frameworks/.NETPortable/ && \
-
-# compile emby
+# install emby
  mkdir -p \
-	/tmp/emby-src/build && \
+	/usr/lib/emby && \
  EMBY_VER=$(curl -sX GET "https://api.github.com/repos/mediaBrowser/Emby/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]') && \
  curl -o \
- /tmp/emby.tar.gz -L \
-	"https://github.com/MediaBrowser/Emby/archive/$EMBY_VER.tar.gz" && \
- tar xf \
- /tmp/emby.tar.gz -C \
-	/tmp/emby-src --strip-components=1 && \
- cd /tmp/emby-src && \
+ /tmp/emby.zip -L \
+	"https://github.com/MediaBrowser/Emby/releases/download/$EMBY_VER/Emby.Mono.zip" && \
+ unzip -q /tmp/emby.zip -d /usr/lib/emby && \
  libMagicWand=$(find / -iname "libMagickWand-*.*.so.0" -exec basename \{} \;) && \
+ libSqlite=$(find / -iname "libsqlite*.so.0" -exec basename \{} \;) && \
+ IMAGEMAGIC_DLL_CONFIG=$(find /usr/lib/emby -iname "*ImageMagick*.dll.config") && \
+ SQLITE_DLL_CONFIG=$(find /usr/lib/emby -iname "*sqlite3.dll.config") && \
  sed -i \
 	s/libMagickWand-6.Q8.so/$libMagicWand/g \
-	/tmp/emby-src/MediaBrowser.Server.Mono/ImageMagickSharp.dll.config && \
- libSqlite=$(find / -iname "libsqlite*.so.0" -exec basename \{} \;) && \
- SQLITE_DLL=$(find /tmp/emby-src -iname "*sqlite3.dll.config") && \
+	$IMAGEMAGIC_DLL_CONFIG && \
  sed -i \
 	s/libsqlite3.so/$libSqlite/g \
-	$SQLITE_DLL && \
- /opt/mono/bin/xbuild \
-	/p:Configuration='Release Mono' \
-	/p:Platform='Any CPU' \
-	/p:OutputPath=/tmp/emby-src/build \
-	/t:build MediaBrowser.Mono.sln && \
- mkdir -p \
-	/usr/lib/emby && \
- cp -r /tmp/emby-src/build/* /usr/lib/emby/ && \
+	$SQLITE_DLL_CONFIG && \
 
 # compile ffmpeg
  mkdir -p \
@@ -212,7 +180,7 @@ RUN \
 	--enable-shared \
 	--enable-vaapi \
 	--enable-version3 \
-	--prefix=/opt/mono && \
+	--prefix=/usr && \
  make && \
  make install && \
 
