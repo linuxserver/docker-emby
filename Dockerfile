@@ -9,7 +9,6 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 # package versions
 ARG FFMPEG_VER="3.3.3"
 ARG MONO_VER="5.4.0.56"
-ARG REFERENCEASSEMBLIES_COMMIT="874cf94eeaf35aa267878f9983b280a00e7bed19"
 
 # copy patches
 COPY patches/ /tmp/patches/
@@ -111,15 +110,15 @@ RUN \
  ./configure \
 	--disable-boehm \
 	--disable-libraries \
-	--infodir=/opt/mono/share/info \
+	--infodir=/usr/share/info \
 	--localstatedir=/var \
-	--mandir=/opt/mono/share/man \
-	--prefix=/opt/mono \
-	--without-mcs-docs && \
+	--mandir=/usr/share/man \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--without-mcs-docs \
+	--without-sigaltstack && \
  make && \
  make install && \
- find /opt/mono -name "*.so*" -exec strip --strip-unneeded {} \; && \
- strip /opt/mono/bin/mono || true && \
 
 # install emby
  mkdir -p \
@@ -184,15 +183,19 @@ RUN \
  make && \
  make install && \
 
+# strip binaries
+ find /usr/lib \( -name "*.so" -o -name "*.so.*" \) -exec strip --strip-unneeded {} \; && \
+ strip /usr/bin/ffmpeg /usr/bin/ffprobe  /usr/bin/ffserver /usr/bin/mono || true && \
+
 # cleanup
  apk del --purge \
 	build-dependencies && \
  rm -rf \
 	/tmp/* \
-	/opt/mono/lib/*.la \
-	/opt/mono/lib/libMonoSupportW.* \
-	/opt/mono/lib/mono/*/Mono.Security.Win32* \
-	/opt/mono/lib/mono/xbuild-frameworks/.NETPortable/v4.*
+	/usr/lib/*.la \
+	/usr/lib/libMonoSupportW.* \
+	/usr/lib/mono/*/Mono.Security.Win32* \
+	/usr/lib/mono/xbuild-frameworks/.NETPortable/v4.*
 
 # add local files
 COPY root/ /
