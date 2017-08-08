@@ -8,7 +8,8 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 
 # package versions
 ARG FFMPEG_VER="3.3.3"
-ARG FRAME_COMMIT="874cf94eeaf35aa267878f9983b280a00e7bed19"
+ARG MONO_VER="5.4.0.56"
+ARG REFERENCEASSEMBLIES_COMMIT="874cf94eeaf35aa267878f9983b280a00e7bed19"
 
 # copy patches
 COPY patches/ /tmp/patches/
@@ -19,13 +20,14 @@ RUN \
 	alsa-lib-dev \
 	autoconf \
 	automake \
+	binutils \
 	bzip2-dev \
 	cmake \
-	coreutils \
 	curl \
 	file \
 	g++ \
 	gcc \
+	gettext \
 	git \
 	gnutls-dev \
 	jpeg-dev \
@@ -42,6 +44,7 @@ RUN \
 	make \
 	openjpeg-dev \
 	opus-dev \
+	paxmark \
 	perl \
 	rtmpdump-dev \
 	sdl-dev \
@@ -54,9 +57,6 @@ RUN \
 	xvidcore-dev \
 	yasm \
 	zlib-dev && \
- apk add --no-cache --virtual=build-dependencies \
-	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	frei0r-plugins-dev && \
 
 # install runtime packages
  apk add --no-cache \
@@ -76,6 +76,7 @@ RUN \
 	libxcb \
 	openjpeg \
 	opus \
+	python \
 	soxr \
 	speex \
 	sqlite \
@@ -83,110 +84,64 @@ RUN \
 	x264 \
 	x264-libs \
 	x265 \
-	xvidcore && \
+	xvidcore \
+	zlib && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	frei0r-plugins \
-	mono && \
+	libgdiplus && \
 
-# compile opencore
+# compile mono
  mkdir -p \
-	/tmp/opencore-amr && \
+	/tmp/mono-src && \
  curl -o \
- /tmp/opencore-src.tar.gz -L \
-	"https://sourceforge.net/projects/opencore-amr/files/latest/download" && \
+ /tmp/mono.tar.bz2 -L \
+	"https://download.mono-project.com/sources/mono/mono-${MONO_VER}.tar.bz2" && \
  tar xf \
- /tmp/opencore-src.tar.gz -C \
-	/tmp/opencore-amr --strip-components=1 && \
- cd /tmp/opencore-amr && \
+ /tmp/mono.tar.bz2 -C \
+	/tmp/mono-src --strip-components=1 && \
+ cd /tmp/mono-src && \
+ sed -i \
+	's|$mono_libdir/||g' \
+	/tmp/mono-src/data/config.in && \
+ sed -i \
+	'/exec "/ i\paxmark mr "$(readlink -f "$MONO_EXECUTABLE")"' \
+	/tmp/mono-src/runtime/mono-wrapper.in && \
+ export CFLAGS="$CFLAGS -Os -fno-strict-aliasing" && \
  ./configure \
-	--prefix=/usr && \
+	--disable-boehm \
+	--disable-libraries \
+	--disable-rpath \
+	--enable-minimal=debug \
+	--enable-parallel-mark \
+	--infodir=/opt/mono/share/info \
+	--localstatedir=/var \
+	--mandir=/opt/mono/share/man \
+	--prefix=/opt/mono \
+	--sysconfdir=/etc \
+	--with-mcs-docs=no \
+	--with-moonlight=no \
+	--without-sigaltstack \
+	--with-profile2=no \
+	--with-profile4_5=yes \
+	--with-profile4=no && \
  make && \
  make install && \
- mkdir -p \
-	/tmp/opencore-amrwbenc && \
- curl -o \
- /tmp/opencore-amrwbenc-src.tar.gz -L \
-	"https://sourceforge.net/projects/opencore-amr/files/vo-amrwbenc/vo-amrwbenc-0.1.3.tar.gz/download" && \
- tar xf \
- /tmp/opencore-amrwbenc-src.tar.gz -C \
-	/tmp/opencore-amrwbenc && \
- ./configure \
-	--prefix=/usr && \
- make && \
- make install && \
- libtool --finish /usr/lib && \
-
-# compile vidstab
- git clone https://github.com/georgmartius/vid.stab /tmp/vidstap && \
- cd /tmp/vidstap && \
- cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/ && \
- make && \
- make install && \
-
-# compile zimg
- git clone https://github.com/sekrit-twc/zimg /tmp/zimg && \
- cd /tmp/zimg && \
- ./autogen.sh && \
- ./configure \
-	--prefix=/usr && \
- make && \
- make install && \
-
-# compile ffmpeg
- mkdir -p /tmp/ffmpeg-src && \
- curl -o \
- /tmp/ffmpeg.tar.bz2 -L \
-	"http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VER}.tar.bz2" && \
- tar xf \
- /tmp/ffmpeg.tar.bz2 -C \
-	/tmp/ffmpeg-src --strip-components=1 && \
- cd /tmp/ffmpeg-src && \
- for i in /tmp/patches/*.patch; do patch -p1 -i $i; done && \
- ./configure \
-	--disable-debug \
-	--disable-ffplay \
-	--disable-indev=sndio \
-	--disable-outdev=sndio \
-	--disable-static \
-	--disable-stripping \
-	--enable-fontconfig \
-	--enable-frei0r \
-	--enable-gpl \
-	--enable-gray \
-	--enable-libfreetype \
-	--enable-libfribidi \
-	--enable-libopencore-amrnb \
-	--enable-libopencore-amrwb \
-	--enable-libopenjpeg \
-	--enable-libopus \
-	--enable-librtmp \
-	--enable-libsoxr \
-	--enable-libspeex \
-	--enable-libtheora \
-	--enable-libv4l2 \
-	--enable-libvidstab \
-#	--enable-libvo-amrwbenc \
-	--enable-libvorbis \
-	--enable-libvpx \
-	--enable-libwebp \
-	--enable-libx264 \
-	--enable-libx265 \
-	--enable-libxvid \
-	--enable-libzimg \
-	--enable-shared \
-	--enable-vaapi \
-	--enable-version3 \
-	--prefix=/usr && \
- make && \
- make install && \
+ install -D -m644 /tmp/patches/mono/mono.binfmt.d  /opt/mono/lib/binfmt.d/mono.conf && \
+ sed -i \
+	-e "s:#Requires:Requires:" \
+	/opt/mono/lib/pkgconfig/mono.pc && \
+ sed -i \
+	-e "s:/2.0/:/4.5/:g" \
+	/opt/mono/lib/pkgconfig/mono-nunit.pc && \
+ find /opt/mono -name "*.so*" -exec strip --strip-unneeded {} \; && \
+ strip /opt/mono/bin/mono || true && \
 
 # install referenceassemblies-pcl
  git clone https://github.com/directhex/xamarin-referenceassemblies-pcl /tmp/pcl && \
  cd /tmp/pcl && \
- git checkout $FRAME_COMMIT && \
- install -dm 755 /usr/lib/mono/xbuild-frameworks/.NETPortable/ && \
- cp -dr --no-preserve='ownership' v4.* /usr/lib/mono/xbuild-frameworks/.NETPortable/ && \
+ git checkout $REFERENCEASSEMBLIES_COMMIT && \
+ install -dm 755 /opt/mono/lib/mono/xbuild-frameworks/.NETPortable/ && \
+ cp -dr --no-preserve='ownership' v4.* /opt/mono/lib/mono/xbuild-frameworks/.NETPortable/ && \
 
 # compile emby
  mkdir -p \
@@ -199,9 +154,8 @@ RUN \
  tar xf \
  /tmp/emby.tar.gz -C \
 	/tmp/emby-src --strip-components=1 && \
- SQL_DLL=$(find / -name "*sqlite3.dll.config*") && \
  cd /tmp/emby-src && \
- libMagicWand=$(find / -iname "libMagickWand-7.*.so.0" -exec basename \{} \;) && \
+ libMagicWand=$(find / -iname "libMagickWand-*.*.so.0" -exec basename \{} \;) && \
  sed -i \
 	s/libMagickWand-6.Q8.so/$libMagicWand/g \
 	/tmp/emby-src/MediaBrowser.Server.Mono/ImageMagickSharp.dll.config && \
@@ -210,7 +164,7 @@ RUN \
  sed -i \
 	s/libsqlite3.so/$libSqlite/g \
 	$SQLITE_DLL && \
- xbuild \
+ /opt/mono/bin/xbuild \
 	/p:Configuration='Release Mono' \
 	/p:Platform='Any CPU' \
 	/p:OutputPath=/tmp/emby-src/build \
@@ -219,12 +173,58 @@ RUN \
 	/usr/lib/emby && \
  cp -r /tmp/emby-src/build/* /usr/lib/emby/ && \
 
+# compile ffmpeg
+ mkdir -p \
+	/tmp/ffmpeg-src && \
+ curl -o \
+ /tmp/ffmpeg.tar.bz2 -L \
+	"http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VER}.tar.bz2" && \
+ tar xf \
+ /tmp/ffmpeg.tar.bz2 -C \
+	/tmp/ffmpeg-src --strip-components=1 && \
+ cd /tmp/ffmpeg-src && \
+ for i in /tmp/patches/ffmpeg/*.patch; do patch -p1 -i $i; done && \
+ ./configure \
+	--disable-debug \
+	--disable-ffplay \
+	--disable-indev=sndio \
+	--disable-outdev=sndio \
+	--disable-static \
+	--disable-stripping \
+	--enable-fontconfig \
+	--enable-gpl \
+	--enable-gray \
+	--enable-libfreetype \
+	--enable-libfribidi \
+	--enable-libopenjpeg \
+	--enable-libopus \
+	--enable-librtmp \
+	--enable-libsoxr \
+	--enable-libspeex \
+	--enable-libtheora \
+	--enable-libv4l2 \
+	--enable-libvorbis \
+	--enable-libvpx \
+	--enable-libwebp \
+	--enable-libx264 \
+	--enable-libx265 \
+	--enable-libxvid \
+	--enable-shared \
+	--enable-vaapi \
+	--enable-version3 \
+	--prefix=/opt/mono && \
+ make && \
+ make install && \
+
 # cleanup
  apk del --purge \
 	build-dependencies && \
  rm -rf \
 	/tmp/* \
-	/usr/lib/mono/xbuild-frameworks/.NETPortable/v4.*
+	/opt/mono/lib/*.la \
+	/opt/mono/lib/libMonoSupportW.* \
+	/opt/mono/lib/mono/*/Mono.Security.Win32* \
+	/opt/mono/lib/mono/xbuild-frameworks/.NETPortable/v4.*
 
 # add local files
 COPY root/ /
