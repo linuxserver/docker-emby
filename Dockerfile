@@ -1,20 +1,20 @@
-FROM lsiobase/alpine:3.6
-MAINTAINER sparklyballs
+FROM lsiobase/alpine:3.7
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="sparklyballs"
 
 # package versions
-ARG FFMPEG_VER="3.3.3"
-ARG MONO_VER="5.4.0.56"
+ARG FFMPEG_VER="3.4"
+ARG MONO_VER="5.4.1.6"
 
 # copy patches
 COPY patches/ /tmp/patches/
 
-# install build packages
 RUN \
+ echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-dependencies \
 	alsa-lib-dev \
 	autoconf \
@@ -56,8 +56,7 @@ RUN \
 	xvidcore-dev \
 	yasm \
 	zlib-dev && \
-
-# install runtime packages
+ echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	alsa-lib \
 	fontconfig \
@@ -89,8 +88,7 @@ RUN \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	libgdiplus && \
-
-# compile mono
+ echo "**** compile mono ****" && \
  mkdir -p \
 	/tmp/mono-src && \
  curl -o \
@@ -117,10 +115,21 @@ RUN \
 	--sysconfdir=/etc \
 	--without-mcs-docs \
 	--without-sigaltstack && \
- make && \
+ echo "**** attempt to set number of cores available for make to use ****" && \ 
+ set -ex && \
+ CPU_CORES=$( < /proc/cpuinfo grep -c processor ) || echo "failed cpu look up" && \
+ if echo $CPU_CORES | grep -E  -q '^[0-9]+$'; then \
+	: ;\
+ if [ "$CPU_CORES" -gt 7 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 3 )); \
+ elif [ "$CPU_CORES" -gt 5 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 2 )); \
+ elif [ "$CPU_CORES" -gt 3 ]; then \
+	CPU_CORES=$(( CPU_CORES  - 1 )); fi \
+ else CPU_CORES="1"; fi && \
+ make -j $CPU_CORES && \
  make install && \
-
-# install emby
+ echo "**** install emby ****" && \
  mkdir -p \
 	/usr/lib/emby && \
  EMBY_VER=$(curl -sX GET "https://api.github.com/repos/mediaBrowser/Emby/releases/latest" \
@@ -139,8 +148,7 @@ RUN \
  sed -i \
 	s/libsqlite3.so/$libSqlite/g \
 	$SQLITE_DLL_CONFIG && \
-
-# compile ffmpeg
+ echo "**** compile ffmpeg ****" && \
  mkdir -p \
 	/tmp/ffmpeg-src && \
  curl -o \
@@ -180,14 +188,13 @@ RUN \
 	--enable-vaapi \
 	--enable-version3 \
 	--prefix=/usr && \
- make && \
+ make -j $CPU_CORES && \
+ set +ex && \
  make install && \
-
-# strip binaries
+ echo "**** strip binaries ****" && \
  find /usr/lib \( -name "*.so" -o -name "*.so.*" \) -exec strip --strip-unneeded {} \; && \
  strip /usr/bin/ffmpeg /usr/bin/ffprobe  /usr/bin/ffserver /usr/bin/mono || true && \
-
-# cleanup
+ echo "**** cleanup ****" && \
  apk del --purge \
 	build-dependencies && \
  rm -rf \
