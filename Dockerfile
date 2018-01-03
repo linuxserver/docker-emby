@@ -7,7 +7,7 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="sparklyballs,aptalca"
 
 # package versions
-ARG FFMPEG_VER="3.4"
+ARG FFMPEG_VER="3.4.1"
 ARG MONO_VER="5.4.1.6"
 
 # copy patches
@@ -115,19 +115,7 @@ RUN \
 	--sysconfdir=/etc \
 	--without-mcs-docs \
 	--without-sigaltstack && \
- echo "**** attempt to set number of cores available for make to use ****" && \ 
- set -ex && \
- CPU_CORES=$( < /proc/cpuinfo grep -c processor ) || echo "failed cpu look up" && \
- if echo $CPU_CORES | grep -E  -q '^[0-9]+$'; then \
-	: ;\
- if [ "$CPU_CORES" -gt 7 ]; then \
-	CPU_CORES=$(( CPU_CORES  - 3 )); \
- elif [ "$CPU_CORES" -gt 5 ]; then \
-	CPU_CORES=$(( CPU_CORES  - 2 )); \
- elif [ "$CPU_CORES" -gt 3 ]; then \
-	CPU_CORES=$(( CPU_CORES  - 1 )); fi \
- else CPU_CORES="1"; fi && \
- make -j $CPU_CORES && \
+ make && \
  make install && \
  echo "**** install emby ****" && \
  mkdir -p \
@@ -188,8 +176,7 @@ RUN \
 	--enable-vaapi \
 	--enable-version3 \
 	--prefix=/usr && \
- make -j $CPU_CORES && \
- set +ex && \
+ make && \
  make install && \
  echo "**** strip binaries ****" && \
  find /usr/lib \( -name "*.so" -o -name "*.so.*" \) -exec strip --strip-unneeded {} \; && \
