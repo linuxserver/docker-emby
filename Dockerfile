@@ -5,7 +5,7 @@ ARG BUILD_DATE
 ARG VERSION
 ARG EMBY_VER
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="sparklyballs,thelamer"
+LABEL maintainer="thelamer"
 # base lang
 ENV LANG=C.UTF-8
 
