@@ -6,7 +6,8 @@ mkdir -p /data
 # permissions (non-recursive) on config root and folders
 chown abc:abc \
 	/config \
-	/data
+	/data \
+	/transcode
 if [ -n "$(ls -A /data 2>/dev/null)" ]; then
 chown abc:abc \
 	/data/*
