@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 
-LD_LIBRARY_PATH=/app/emby exec \
+exec \
 	s6-setuidgid abc /app/emby/EmbyServer \
 	-programdata /config \
 	-ffdetect /app/emby/ffdetect \
