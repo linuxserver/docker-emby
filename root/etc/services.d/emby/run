@@ -1,8 +1,8 @@
 #!/usr/bin/with-contenv bash
 
 exec \
-	s6-setuidgid abc /usr/bin/mono \
-	/usr/lib/emby/MediaBrowser.Server.Mono.exe \
-	-programdata /config -ffmpeg /usr/bin/ffmpeg \
-	-ffprobe /usr/bin/ffprobe -restartpath /defaults/restart.sh
-
+	s6-setuidgid abc /app/emby/EmbyServer \
+	-programdata /config \
+	-ffdetect /app/emby/ffdetect \
+	-ffmpeg /app/emby/ffmpeg \
+	-ffprobe /app/emby/ffprobe
