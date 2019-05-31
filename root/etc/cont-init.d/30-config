@@ -1,10 +1,15 @@
 #!/usr/bin/with-contenv bash
 
-# permissions
-chown -R abc:abc \
-	/config
+# Create data if does not exist
+mkdir -p /data
 
+# permissions (non-recursive) on config root and folders
 chown abc:abc \
-	/defaults/restart.sh
-chmod +x \
-	/defaults/restart.sh
+	/config \
+	/data
+if [ -n "$(ls -A /data 2>/dev/null)" ]; then
+chown abc:abc \
+	/data/*
+fi
+
+

@@ -1,0 +1,29 @@
+---
+
+# jenkins variables
+project_name: docker-emby
+external_type: github_stable
+release_type: stable
+release_tag: latest
+ls_branch: master
+repo_vars:
+  - EXT_GIT_BRANCH = 'master'
+  - EXT_USER = 'MediaBrowser'
+  - EXT_REPO = 'Emby.Releases'
+  - BUILD_VERSION_ARG = 'EMBY_RELEASE'
+  - LS_USER = 'linuxserver'
+  - LS_REPO = 'docker-emby'
+  - CONTAINER_NAME = 'emby'
+  - DOCKERHUB_IMAGE = 'linuxserver/emby'
+  - DEV_DOCKERHUB_IMAGE = 'lsiodev/emby'
+  - PR_DOCKERHUB_IMAGE = 'lspipepr/emby'
+  - DIST_IMAGE = 'ubuntu'
+  - MULTIARCH='true'
+  - CI='true'
+  - CI_WEB='true'
+  - CI_PORT='8096'
+  - CI_SSL='false'
+  - CI_DELAY='120'
+  - CI_DOCKERENV='TZ=US/Pacific'
+  - CI_AUTH='user:password'
+  - CI_WEBPATH=''
