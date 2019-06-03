@@ -50,6 +50,7 @@ COPY root/ /
 # lib setup
 RUN \
  echo "/app/emby" > /etc/ld.so.conf.d/emby.conf && \
+ rm -f /usr/lib/*/libssl.so* && \
  ldconfig
 
 # ports and volumes
