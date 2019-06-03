@@ -1,5 +1,14 @@
 #!/usr/bin/with-contenv bash
 
+# env settings
+APP_DIR="/app/emby"
+export LD_LIBRARY_PATH="${APP_DIR}"
+export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
+if [ -d "/lib/x86_64-linux-gnu" ]; then
+	export LIBVA_DRIVERS_PATH="${APP_DIR}":/usr/lib/x86_64-linux-gnu/dri:/usr/lib64/dri:/usr/lib/dri
+fi
+export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
+
 exec \
 	s6-setuidgid abc /app/emby/EmbyServer \
 	-programdata /config \
