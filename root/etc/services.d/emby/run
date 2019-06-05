@@ -1,8 +1,17 @@
 #!/usr/bin/with-contenv bash
 
-exec \
-	s6-setuidgid abc /usr/bin/mono \
-	/usr/lib/emby/MediaBrowser.Server.Mono.exe \
-	-programdata /config -ffmpeg /usr/bin/ffmpeg \
-	-ffprobe /usr/bin/ffprobe -restartpath /defaults/restart.sh
+# env settings
+APP_DIR="/app/emby"
+export LD_LIBRARY_PATH="${APP_DIR}"
+export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
+if [ -d "/lib/x86_64-linux-gnu" ]; then
+	export LIBVA_DRIVERS_PATH="${APP_DIR}"/dri
+fi
+export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
 
+exec \
+	s6-setuidgid abc /app/emby/EmbyServer \
+	-programdata /config \
+	-ffdetect /app/emby/ffdetect \
+	-ffmpeg /app/emby/ffmpeg \
+	-ffprobe /app/emby/ffprobe

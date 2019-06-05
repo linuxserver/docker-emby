@@ -1,0 +1,28 @@
+---
+
+# jenkins variables
+project_name: docker-emby
+external_type: custom_json
+release_type: prerelease
+release_tag: beta
+ls_branch: beta
+repo_vars:
+  - JSON_URL = 'https://api.github.com/repos/MediaBrowser/Emby.Releases/releases'
+  - JSON_PATH = 'first(.[] | select(.prerelease = "true" )) | .tag_name'
+  - BUILD_VERSION_ARG = 'EMBY_RELEASE'
+  - LS_USER = 'linuxserver'
+  - LS_REPO = 'docker-emby'
+  - CONTAINER_NAME = 'emby'
+  - DOCKERHUB_IMAGE = 'linuxserver/emby'
+  - DEV_DOCKERHUB_IMAGE = 'lsiodev/emby'
+  - PR_DOCKERHUB_IMAGE = 'lspipepr/emby'
+  - DIST_IMAGE = 'ubuntu'
+  - MULTIARCH='true'
+  - CI='true'
+  - CI_WEB='true'
+  - CI_PORT='8096'
+  - CI_SSL='false'
+  - CI_DELAY='120'
+  - CI_DOCKERENV='TZ=US/Pacific'
+  - CI_AUTH='user:password'
+  - CI_WEBPATH=''

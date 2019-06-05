@@ -20,7 +20,7 @@ RUN \
  fi && \
  curl -o \
 	/tmp/emby.rpm -L \
-	"https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-rpm_${EMBY_RELEASE}_x86_64.rpm" && \
+	"https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-rpm_${EMBY_RELEASE}_aarch64.rpm" && \
  cd /tmp && \
  rpm2cpio emby.rpm \
 	| cpio -i --make-directories && \
