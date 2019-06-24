@@ -63,10 +63,10 @@ docker create \
   -e TZ=Europe/London \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
-  -v </path/to/library>:/config \
-  -v <path/to/tvseries>:/data/tvshows \
-  -v </path/to/movies>:/data/movies \
-  -v </path for transcoding>:/transcode `#optional` \
+  -v /path/to/library:/config \
+  -v /path/to/tvshows:/data/tvshows \
+  -v /path/to/movies:/data/movies \
+  -v /path/for/transcoding:/transcode `#optional` \
   --device /dev/dri:/dev/dri `#optional` \
   --restart unless-stopped \
   linuxserver/emby
@@ -89,10 +89,10 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - </path/to/library>:/config
-      - <path/to/tvseries>:/data/tvshows
-      - </path/to/movies>:/data/movies
-      - </path for transcoding>:/transcode #optional
+      - /path/to/library:/config
+      - /path/to/tvshows:/data/tvshows
+      - /path/to/movies:/data/movies
+      - /path/for/transcoding:/transcode #optional
     ports:
       - 8096:8096
       - 8920:8920 #optional
@@ -214,4 +214,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **24.06.19:** - Fix typos in readme.
 * **30.05.19:** - Initial release.
