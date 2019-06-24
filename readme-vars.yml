@@ -24,9 +24,9 @@ common_param_env_vars_enabled: true #PGID, PUID, etc
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - { vol_path: "/config", vol_host_path: "</path/to/library>", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*" }
-  - { vol_path: "/data/tvshows", vol_host_path: "<path/to/tvseries>", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc." }
-  - { vol_path: "/data/movies", vol_host_path: "</path/to/movies>", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc." }
+  - { vol_path: "/config", vol_host_path: "/path/to/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*" }
+  - { vol_path: "/data/tvshows", vol_host_path: "/path/to/tvshows", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc." }
+  - { vol_path: "/data/movies", vol_host_path: "/path/to/movies", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc." }
 param_usage_include_ports: true
 param_ports:
   - { external_port: "8096", internal_port: "8096", port_desc: "Http webUI." }
@@ -36,7 +36,7 @@ param_env_vars:
 # optional container parameters
 opt_param_usage_include_vols: true
 opt_param_volumes:
-  - { vol_path: "/transcode", vol_host_path: "</path for transcoding>", desc: "Path for transcoding folder, *optional*." }
+  - { vol_path: "/transcode", vol_host_path: "/path/for/transcoding", desc: "Path for transcoding folder, *optional*." }
 opt_param_device_map: true
 opt_param_devices:
 - { device_path: "/dev/dri", device_host_path: "/dev/dri", desc: "Only needed if you want to use your Intel GPU for hardware accelerated video encoding (vaapi)." }
@@ -66,4 +66,5 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "24.06.19:", desc: "Fix typos in readme." }
   - { date: "30.05.19:", desc: "Initial release." }
