@@ -1,5 +1,9 @@
 #!/usr/bin/with-contenv bash
 
+# set umask
+UMASK_SET=${UMASK_SET:-022}
+umask "$UMASK_SET"
+
 # env settings
 APP_DIR="/app/emby"
 export LD_LIBRARY_PATH="${APP_DIR}"
