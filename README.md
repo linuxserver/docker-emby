@@ -230,6 +230,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **02.10.19:** - Improve permission fixing for render and dvb devices.
 * **13.08.19:** - Add umask environment variable.
 * **24.06.19:** - Fix typos in readme.
 * **30.05.19:** - Initial release.
