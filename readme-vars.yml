@@ -69,6 +69,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "02.10.19:", desc: "Improve permission fixing for render and dvb devices." }
   - { date: "13.08.19:", desc: "Add umask environment variable." }
   - { date: "24.06.19:", desc: "Fix typos in readme." }
   - { date: "30.05.19:", desc: "Initial release." }
