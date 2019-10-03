@@ -69,5 +69,6 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "02.10.19:", desc: "Pull deb instead of rpm, improve permission setting for render & dvb devices." }
   - { date: "13.08.19:", desc: "Add umask environment variable." }
   - { date: "30.05.19:", desc: "Initial release." }

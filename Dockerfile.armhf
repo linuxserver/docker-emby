@@ -8,9 +8,7 @@ RUN \
  echo "**** install packages ****" && \
  apt-get update && \
  apt-get install -y \
-	cpio \
-	jq \
-	rpm2cpio && \
+	jq && \
  echo "**** install emby ****" && \
  mkdir -p \
 	/app/emby && \
@@ -19,16 +17,16 @@ RUN \
 	| jq -r 'first(.[] | select(.prerelease = "true" )) | .tag_name'); \
  fi && \
  curl -o \
-	/tmp/emby.rpm -L \
-	"https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-rpm_${EMBY_RELEASE}_armv7hl.rpm" && \
+	/tmp/emby.deb -L \
+	"https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-deb_${EMBY_RELEASE}_armhf.deb" && \
  cd /tmp && \
- rpm2cpio emby.rpm \
-	| cpio -i --make-directories && \
+ dpkg -x emby.deb \
+	/tmp && \
  mv -t \
-        /app/emby/ \
+	/app/emby/ \
 	/tmp/opt/emby-server/system/* \
 	/tmp/opt/emby-server/lib/samba/* \
-        /tmp/opt/emby-server/lib/* \
+	/tmp/opt/emby-server/lib/* \
 	/tmp/opt/emby-server/bin/ff* \
 	/tmp/opt/emby-server/etc
 

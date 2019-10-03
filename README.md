@@ -230,5 +230,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **02.10.19:** - Pull deb instead of rpm, improve permission setting for render & dvb devices.
 * **13.08.19:** - Add umask environment variable.
 * **30.05.19:** - Initial release.
