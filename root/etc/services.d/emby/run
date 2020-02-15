@@ -18,4 +18,5 @@ exec \
 	-programdata /config \
 	-ffdetect /app/emby/ffdetect \
 	-ffmpeg /app/emby/ffmpeg \
-	-ffprobe /app/emby/ffprobe
+	-ffprobe /app/emby/ffprobe \
+	-restartexitcode 3
