@@ -25,10 +25,10 @@ RUN \
  rpm2cpio emby.rpm \
 	| cpio -i --make-directories && \
  mv -t \
-        /app/emby/ \
+	/app/emby/ \
 	/tmp/opt/emby-server/system/* \
 	/tmp/opt/emby-server/lib/samba/* \
-        /tmp/opt/emby-server/lib/* \
+	/tmp/opt/emby-server/lib/* \
 	/tmp/opt/emby-server/bin/ff* \
 	/tmp/opt/emby-server/etc
 
@@ -50,4 +50,4 @@ COPY root/ /
 
 # ports and volumes
 EXPOSE 8096 8920
-VOLUME /config /transcode
+VOLUME /config
