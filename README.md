@@ -78,11 +78,13 @@ docker create \
   -e UMASK_SET=<022> `#optional` \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
-  -v </path/to/library>:/config \
-  -v <path/to/tvseries>:/data/tvshows \
-  -v </path/to/movies>:/data/movies \
-  -v </path for transcoding>:/transcode `#optional` \
+  -v /path/to/library:/config \
+  -v /path/to/tvseries:/data/tvshows \
+  -v /path/to/movies:/data/movies \
+  -v /path/for/transcoding:/transcode `#optional` \
+  -v /opt/vc/lib:/opt/vc/lib `#optional` \
   --device /dev/dri:/dev/dri `#optional` \
+  --device /dev/vchiq:/dev/vchiq `#optional` \
   --restart unless-stopped \
   linuxserver/emby
 ```
@@ -105,15 +107,17 @@ services:
       - TZ=Europe/London
       - UMASK_SET=<022> #optional
     volumes:
-      - </path/to/library>:/config
-      - <path/to/tvseries>:/data/tvshows
-      - </path/to/movies>:/data/movies
-      - </path for transcoding>:/transcode #optional
+      - /path/to/library:/config
+      - /path/to/tvseries:/data/tvshows
+      - /path/to/movies:/data/movies
+      - /path/for/transcoding:/transcode #optional
+      - /opt/vc/lib:/opt/vc/lib #optional
     ports:
       - 8096:8096
       - 8920:8920 #optional
     devices:
       - /dev/dri:/dev/dri #optional
+      - /dev/vchiq:/dev/vchiq #optional
     restart: unless-stopped
 ```
 
@@ -133,7 +137,9 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /data/tvshows` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
 | `-v /data/movies` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
 | `-v /transcode` | Path for transcoding folder, *optional*. |
+| `-v /opt/vc/lib` | Path for Raspberry Pi OpenMAX libs *optional*. |
 | `--device /dev/dri` | Only needed if you want to use your Intel GPU for hardware accelerated video encoding (vaapi). |
+| `--device /dev/vchiq` | Only needed if you want to use your Raspberry Pi OpenMax video encoding (Bellagio). |
 
 ## Environment variables from files (Docker secrets)
 
@@ -179,6 +185,14 @@ Hardware acceleration users for Nvidia will need to install the container runtim
 https://github.com/NVIDIA/nvidia-docker
 
 We automatically add the necessary environment variable that will utilise all the features available on a GPU on the host. Once nvidia-docker is installed on your host you will need to re/create the docker container with the nvidia container runtime `--runtime=nvidia` and add an environment variable `-e NVIDIA_VISIBLE_DEVICES=all` (can also be set to a specific gpu's UUID, this can be discovered by running `nvidia-smi --query-gpu=gpu_name,gpu_uuid --format=csv` ). NVIDIA automatically mounts the GPU and drivers from your host into the emby docker.
+
+### OpenMAX (Raspberry Pi)
+
+Hardware acceleration users for Raspberry Pi OpenMAX will need to mount their /dev/vchiq video device inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
+```
+--device=/dev/vchiq:/dev/vchiq
+-v /opt/vc/lib:/opt/vc/lib
+```
 
 
 
@@ -246,6 +260,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **26.02.20:** - Add openmax support on Raspberry Pi.
 * **15.02.20:** - Allow restarting emby from the gui (also allows for auto restarts after addon updates).
 * **02.10.19:** - Improve permission fixing for render and dvb devices.
 * **13.08.19:** - Add umask environment variable.
