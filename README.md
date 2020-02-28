@@ -85,6 +85,9 @@ docker create \
   -v /opt/vc/lib:/opt/vc/lib `#optional` \
   --device /dev/dri:/dev/dri `#optional` \
   --device /dev/vchiq:/dev/vchiq `#optional` \
+  --device /dev/video10:/dev/video10 `#optional` \
+  --device /dev/video11:/dev/video11 `#optional` \
+  --device /dev/video12:/dev/video12 `#optional` \
   --restart unless-stopped \
   linuxserver/emby
 ```
@@ -118,6 +121,9 @@ services:
     devices:
       - /dev/dri:/dev/dri #optional
       - /dev/vchiq:/dev/vchiq #optional
+      - /dev/video10:/dev/video10 #optional
+      - /dev/video11:/dev/video11 #optional
+      - /dev/video12:/dev/video12 #optional
     restart: unless-stopped
 ```
 
@@ -140,6 +146,9 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /opt/vc/lib` | Path for Raspberry Pi OpenMAX libs *optional*. |
 | `--device /dev/dri` | Only needed if you want to use your Intel GPU for hardware accelerated video encoding (vaapi). |
 | `--device /dev/vchiq` | Only needed if you want to use your Raspberry Pi OpenMax video encoding (Bellagio). |
+| `--device /dev/video10` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
+| `--device /dev/video11` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
+| `--device /dev/video12` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
 
 ## Environment variables from files (Docker secrets)
 
@@ -192,6 +201,15 @@ Hardware acceleration users for Raspberry Pi OpenMAX will need to mount their /d
 ```
 --device=/dev/vchiq:/dev/vchiq
 -v /opt/vc/lib:/opt/vc/lib
+```
+
+### V4L2 (Raspberry Pi)
+
+Hardware acceleration users for Raspberry Pi V4L2 will need to mount their /dev/video1X devices inside of the container by passing the following options when running or creating the container:
+```
+--device=/dev/video10:/dev/video10
+--device=/dev/video11:/dev/video11
+--device=/dev/video12:/dev/video12
 ```
 
 
@@ -260,6 +278,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **28.02.20:** - Add v4l2 support on Raspberry Pi.
 * **26.02.20:** - Add openmax support on Raspberry Pi.
 * **15.02.20:** - Allow restarting emby from the gui (also allows for auto restarts after addon updates).
 * **02.10.19:** - Improve permission fixing for render and dvb devices.
