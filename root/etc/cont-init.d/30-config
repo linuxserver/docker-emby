@@ -1,7 +1,9 @@
 #!/usr/bin/with-contenv bash
 
-# Create data if does not exist
-mkdir -p /data
+# Create folders
+mkdir -p \
+	/data \
+	/transcode
 
 # permissions (non-recursive) on config root and folders
 chown abc:abc \
@@ -12,5 +14,3 @@ if [ -n "$(ls -A /data 2>/dev/null)" ]; then
 chown abc:abc \
 	/data/*
 fi
-
-
