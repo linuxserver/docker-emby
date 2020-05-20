@@ -193,6 +193,12 @@ Hardware acceleration users for Nvidia will need to install the container runtim
 
 https://github.com/NVIDIA/nvidia-docker
 
+**Note that with the release of Docker 19.03, usage of nvidia-docker2 packages are deprecated since NVIDIA GPUs are now natively supported as devices in the Docker runtime.**
+
+**Docker 19.03 onwards**
+You will need to re/create the docker container with the `--gpus=all` option. NVIDIA automatically mounts the GPU and drivers from your host into the emby docker.
+
+**Prior to Docker 19.03**
 We automatically add the necessary environment variable that will utilise all the features available on a GPU on the host. Once nvidia-docker is installed on your host you will need to re/create the docker container with the nvidia container runtime `--runtime=nvidia` and add an environment variable `-e NVIDIA_VISIBLE_DEVICES=all` (can also be set to a specific gpu's UUID, this can be discovered by running `nvidia-smi --query-gpu=gpu_name,gpu_uuid --format=csv` ). NVIDIA automatically mounts the GPU and drivers from your host into the emby docker.
 
 ### OpenMAX (Raspberry Pi)
