@@ -44,8 +44,17 @@ LABEL maintainer="thelamer"
 # add needed nvidia environment variables for https://github.com/NVIDIA/nvidia-docker
 ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 
-# VAAPI drivers
-RUN apt-get update && apt-get install -y mesa-va-drivers
+# install packages
+RUN \
+ echo "**** install packages ****" && \
+ apt-get update && \
+ apt-get install -y --no-install-recommends \
+	mesa-va-drivers && \
+ echo "**** cleanup ****" && \
+ rm -rf \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # add local files
 COPY --from=buildstage /app/emby /app/emby

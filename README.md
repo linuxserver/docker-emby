@@ -143,7 +143,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-v /data/movies` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
 | `-v /transcode` | Path for transcoding folder, *optional*. |
 | `-v /opt/vc/lib` | Path for Raspberry Pi OpenMAX libs *optional*. |
-| `--device /dev/dri` | Only needed if you want to use your Intel GPU for hardware accelerated video encoding (vaapi). |
+| `--device /dev/dri` | Only needed if you want to use your Intel or AMD GPU for hardware accelerated video encoding (vaapi). |
 | `--device /dev/vchiq` | Only needed if you want to use your Raspberry Pi OpenMax video encoding (Bellagio). |
 | `--device /dev/video10` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
 | `--device /dev/video11` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
@@ -187,7 +187,7 @@ Webui can be found at `http://<your-ip>:8096`
 
 Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
 
-Hardware acceleration users for Intel Quicksync will need to mount their /dev/dri video device inside of the container by passing the following command when running or creating the container:
+Hardware acceleration users for Intel Quicksync and AMD VAAPI will need to mount their /dev/dri video device inside of the container by passing the following command when running or creating the container:
 
 ```--device=/dev/dri:/dev/dri```
 
@@ -287,6 +287,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **03.07.20:** - Add support for amd vaapi hw transcode.
 * **29.02.20:** - Add v4l2 support on Raspberry Pi.
 * **26.02.20:** - Add openmax support on Raspberry Pi.
 * **15.02.20:** - Allow restarting emby from the gui (also allows for auto restarts after addon updates).
