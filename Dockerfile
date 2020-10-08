@@ -16,7 +16,7 @@ RUN \
 	/app/emby && \
  if [ -z ${EMBY_RELEASE+x} ]; then \
 	EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases \
-	| jq -r 'first(.[] | select(.prerelease = "true" )) | .tag_name'); \
+	| jq -r 'first(.[] | select(.prerelease==true )) | .tag_name'); \
  fi && \
  curl -o \
 	/tmp/emby.rpm -L \

@@ -8,7 +8,7 @@ release_tag: beta
 ls_branch: beta
 repo_vars:
   - JSON_URL = 'https://api.github.com/repos/MediaBrowser/Emby.Releases/releases'
-  - JSON_PATH = 'first(.[] | select(.prerelease = "true" )) | .tag_name'
+  - JSON_PATH = 'first(.[] | select(.prerelease==true )) | .tag_name'
   - BUILD_VERSION_ARG = 'EMBY_RELEASE'
   - LS_USER = 'linuxserver'
   - LS_REPO = 'docker-emby'
