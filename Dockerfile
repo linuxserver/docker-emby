@@ -1,4 +1,4 @@
-FROM lsiobase/ubuntu:bionic as buildstage
+FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic as buildstage
 
 # build args
 ARG EMBY_RELEASE
@@ -33,7 +33,7 @@ RUN \
 	/tmp/opt/emby-server/etc
 
 # runtime stage
-FROM lsiobase/ubuntu:bionic
+FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
 # set version label
 ARG BUILD_DATE
