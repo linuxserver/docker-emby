@@ -91,6 +91,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "13.11.20:", desc: "Fix issue with samba and ffmpeg." }
   - { date: "03.07.20:", desc: "Add support for amd vaapi hw transcode." }
   - { date: "29.02.20:", desc: "Add v4l2 support on Raspberry Pi." }
   - { date: "26.02.20:", desc: "Add openmax support on Raspberry Pi." }

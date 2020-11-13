@@ -291,6 +291,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **13.11.20:** - Fix issue with samba and ffmpeg.
 * **03.07.20:** - Add support for amd vaapi hw transcode.
 * **29.02.20:** - Add v4l2 support on Raspberry Pi.
 * **26.02.20:** - Add openmax support on Raspberry Pi.

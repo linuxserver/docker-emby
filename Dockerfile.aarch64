@@ -27,6 +27,7 @@ RUN \
  mv -t \
 	/app/emby/ \
 	/tmp/opt/emby-server/system/* \
+	/tmp/opt/emby-server/lib/samba/* \
 	/tmp/opt/emby-server/lib/* \
 	/tmp/opt/emby-server/bin/ff* \
 	/tmp/opt/emby-server/etc
