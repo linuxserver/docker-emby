@@ -6,6 +6,7 @@ external_type: custom_json
 release_type: prerelease
 release_tag: beta
 ls_branch: beta
+custom_external_trigger: true
 repo_vars:
   - JSON_URL = 'https://api.github.com/repos/MediaBrowser/Emby.Releases/releases'
   - JSON_PATH = 'first(.[] | select(.prerelease==true )) | .tag_name'
