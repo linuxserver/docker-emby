@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic as buildstage
+FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-bionic as buildstage
 
 # build args
 ARG EMBY_RELEASE
@@ -32,7 +32,7 @@ RUN \
 	/tmp/opt/emby-server/etc
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
+FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-focal
 
 # set version label
 ARG BUILD_DATE
@@ -51,7 +51,7 @@ RUN \
  apt-get install -y --no-install-recommends \
 	libomxil-bellagio0 \
 	libomxil-bellagio-bin \
-	libraspberrypi-bin-nonfree && \
+	libraspberrypi0 && \
  echo "**** cleanup ****" && \
  rm -rf \
 	/tmp/* \
