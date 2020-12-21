@@ -291,6 +291,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **21.12.20:** - Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf.
 * **03.07.20:** - Add support for amd vaapi hw transcode.
 * **28.02.20:** - Add v4l2 support on Raspberry Pi.
 * **26.02.20:** - Add openmax support on Raspberry Pi.

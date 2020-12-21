@@ -91,6 +91,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "21.12.20:", desc: "Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf." }
   - { date: "03.07.20:", desc: "Add support for amd vaapi hw transcode." }
   - { date: "28.02.20:", desc: "Add v4l2 support on Raspberry Pi." }
   - { date: "26.02.20:", desc: "Add openmax support on Raspberry Pi." }
