@@ -91,6 +91,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "21.12.20:", desc: "Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf." }
   - { date: "03.11.20:", desc: "Fix issue with missing samba folder." }
   - { date: "13.11.20:", desc: "Fix issue with samba and ffmpeg." }
   - { date: "03.07.20:", desc: "Add support for amd vaapi hw transcode." }
