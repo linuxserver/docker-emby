@@ -32,7 +32,7 @@ RUN \
 	/tmp/opt/emby-server/etc
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
 
 # set version label
 ARG BUILD_DATE
