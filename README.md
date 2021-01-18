@@ -84,7 +84,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - UMASK_SET=<022> #optional
     volumes:
       - /path/to/library:/config
       - /path/to/tvshows:/data/tvshows
@@ -110,7 +109,6 @@ docker run -d \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Europe/London \
-  -e UMASK_SET=<022> `#optional` \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
   -v /path/to/library:/config \
@@ -138,7 +136,6 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Europe/London` | Specify a timezone to use EG Europe/London |
-| `-e UMASK_SET=<022>` | for umask setting of Emby, default if left unset is 022. |
 | `-v /config` | Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.* |
 | `-v /data/tvshows` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
 | `-v /data/movies` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
@@ -288,6 +285,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **17.01.21:** - Deprecate `UMASK_SET` in favor of UMASK in baseimage, see above for more information. Remove no longer used mapping for /transcode.
 * **21.12.20:** - Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf.
 * **03.11.20:** - Fix issue with missing samba folder.
 * **13.11.20:** - Fix issue with samba and ffmpeg.
