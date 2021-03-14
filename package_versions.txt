@@ -137,7 +137,7 @@ libxcb-sync11.14-2
 libxcb-xfixes01.14-2
 libxdmcp61:1.1.3-0ubuntu1
 libxshmfence11.3-1
-libzstd11.4.4+dfsg-3
+libzstd11.4.4+dfsg-3ubuntu0.1
 locales2.31-0ubuntu9.2
 login1:4.8.1-1ubuntu5.20.04
 logsave1.45.5-2ubuntu1
