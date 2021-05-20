@@ -3,7 +3,7 @@
 # project information
 project_name: emby
 project_url: "https://emby.media/"
-project_logo: "https://emby.media/community/uploads/inline/3/55626b855503c_logo800.png"
+project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/emby-logo.png"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) organizes video, music, live TV, and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices. This container is packaged as a standalone emby Media Server."
 
@@ -89,6 +89,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "19.05.21:", desc: "Structural changes upstream." }
   - { date: "17.01.21:", desc: "Deprecate `UMASK_SET` in favor of UMASK in baseimage, see above for more information. Remove no longer used mapping for /transcode." }
   - { date: "21.12.20:", desc: "Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf." }
   - { date: "03.11.20:", desc: "Fix issue with missing samba folder." }

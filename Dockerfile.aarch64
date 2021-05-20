@@ -29,7 +29,8 @@ RUN \
 	/tmp/opt/emby-server/system/* \
 	/tmp/opt/emby-server/lib/* \
 	/tmp/opt/emby-server/bin/ff* \
-	/tmp/opt/emby-server/etc
+	/tmp/opt/emby-server/etc \
+	/tmp/opt/emby-server/extra/lib/*
 
 # runtime stage
 FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-focal
