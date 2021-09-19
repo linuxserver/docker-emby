@@ -85,7 +85,7 @@ libkrb5support01.17-6ubuntu4.1
 libksba81.3.5-2
 libldap-2.4-22.4.49+dfsg-2ubuntu1.8
 libldap-common2.4.49+dfsg-2ubuntu1.8
-libllvm121:12.0.0-3ubuntu1~20.04.3
+libllvm121:12.0.0-3ubuntu1~20.04.4
 liblz4-11.9.2-2ubuntu0.20.04.1
 liblzma55.2.4-1ubuntu1
 libmount12.34-0.1ubuntu9.1
