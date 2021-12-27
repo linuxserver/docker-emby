@@ -50,6 +50,7 @@ opt_param_usage_include_ports: true
 opt_param_ports:
   - { external_port: "8920", internal_port: "8920", port_desc: "Https webUI (you need to setup your own certificate)." }
 
+unraid_template_sync: false
 
 # application setup block
 app_setup_block_enabled: true
