@@ -53,11 +53,11 @@ libcrypt11:4.4.10-10ubuntu4
 libcurl47.68.0-1ubuntu2.7
 libdb5.35.3.28+dfsg1-0.6ubuntu2
 libdebconfclient00.251ubuntu1
-libdrm22.4.105-3~20.04.2
-libdrm-amdgpu12.4.105-3~20.04.2
-libdrm-common2.4.105-3~20.04.2
-libdrm-nouveau22.4.105-3~20.04.2
-libdrm-radeon12.4.105-3~20.04.2
+libdrm22.4.107-8ubuntu1~20.04.1
+libdrm-amdgpu12.4.107-8ubuntu1~20.04.1
+libdrm-common2.4.107-8ubuntu1~20.04.1
+libdrm-nouveau22.4.107-8ubuntu1~20.04.1
+libdrm-radeon12.4.107-8ubuntu1~20.04.1
 libedit23.1-20191231-1
 libelf10.176-1.1build1
 libexpat12.2.9-1build1
@@ -143,7 +143,7 @@ login1:4.8.1-1ubuntu5.20.04.1
 logsave1.45.5-2ubuntu1
 lsb-base11.1.0ubuntu2
 mawk1.3.4.20200120-2
-mesa-va-drivers21.0.3-0ubuntu0.3~20.04.5
+mesa-va-drivers21.2.6-0ubuntu0.1~20.04.1
 mount2.34-0.1ubuntu9.1
 ncurses-base6.2-0ubuntu2
 ncurses-bin6.2-0ubuntu2
