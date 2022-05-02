@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic as buildstage
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as buildstage
 
 # build args
 ARG EMBY_RELEASE
@@ -33,7 +33,7 @@ RUN \
 	/tmp/opt/emby-server/extra/lib/*
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 
 # set version label
 ARG BUILD_DATE

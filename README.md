@@ -289,6 +289,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **02.05.22:** - Rebase to Jammy.
 * **26.03.21:** - Structural changes upstream.
 * **17.01.21:** - Deprecate `UMASK_SET` in favor of UMASK in baseimage, see above for more information. Remove no longer used mapping for /transcode.
 * **21.12.20:** - Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf.
