@@ -10,7 +10,3 @@ chown abc:abc \
 	/config \
 	/data \
 	/transcode
-if [ -n "$(ls -A /data 2>/dev/null)" ]; then
-chown abc:abc \
-	/data/*
-fi
