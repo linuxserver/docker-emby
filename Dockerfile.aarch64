@@ -1,39 +1,39 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-bionic as buildstage
+FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-jammy as buildstage
 
 # build args
 ARG EMBY_RELEASE
 ENV DEBIAN_FRONTEND="noninteractive" 
 
 RUN \
- echo "**** install packages ****" && \
- apt-get update && \
- apt-get install -y \
-	cpio \
-	jq \
-	rpm2cpio && \
- echo "**** install emby ****" && \
- mkdir -p \
-	/app/emby && \
- if [ -z ${EMBY_RELEASE+x} ]; then \
-	EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
-	| jq -r '. | .tag_name'); \
- fi && \
- curl -o \
-	/tmp/emby.rpm -L \
-	"https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-rpm_${EMBY_RELEASE}_aarch64.rpm" && \
- cd /tmp && \
- rpm2cpio emby.rpm \
-	| cpio -i --make-directories && \
- mv -t \
-	/app/emby/ \
-	/tmp/opt/emby-server/system/* \
-	/tmp/opt/emby-server/lib/* \
-	/tmp/opt/emby-server/bin/ff* \
-	/tmp/opt/emby-server/etc \
-	/tmp/opt/emby-server/extra/lib/*
+  echo "**** install packages ****" && \
+  apt-get update && \
+  apt-get install -y \
+    cpio \
+    jq \
+    rpm2cpio && \
+  echo "**** install emby ****" && \
+  mkdir -p \
+    /app/emby && \
+  if [ -z ${EMBY_RELEASE+x} ]; then \
+    EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
+    | jq -r '. | .tag_name'); \
+  fi && \
+  curl -o \
+    /tmp/emby.rpm -L \
+    "https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-rpm_${EMBY_RELEASE}_aarch64.rpm" && \
+  cd /tmp && \
+  rpm2cpio emby.rpm \
+    | cpio -i --make-directories && \
+  mv -t \
+    /app/emby/ \
+    /tmp/opt/emby-server/system/* \
+    /tmp/opt/emby-server/lib/* \
+    /tmp/opt/emby-server/bin/ff* \
+    /tmp/opt/emby-server/etc \
+    /tmp/opt/emby-server/extra/lib/*
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-focal
+FROM ghcr.io/linuxserver/baseimage-ubuntu:arm64v8-jammy
 
 # set version label
 ARG BUILD_DATE
@@ -41,23 +41,25 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
+ARG DEBIAN_FRONTEND="noninteractive"
+
 # add needed nvidia environment variables for https://github.com/NVIDIA/nvidia-docker
 ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 
 RUN \
- echo "**** add emby deps *****" && \
- curl -s https://keyserver.ubuntu.com/pks/lookup?op=get\&search=0x6587ffd6536b8826e88a62547876ae518cbcf2f2 | apt-key add - && \
- echo "deb http://ppa.launchpad.net/ubuntu-raspi2/ppa-nightly/ubuntu focal main">> /etc/apt/sources.list.d/raspbins.list && \
- apt-get update && \
- apt-get install -y --no-install-recommends \
-	libomxil-bellagio0 \
-	libomxil-bellagio-bin \
-	libraspberrypi0 && \
- echo "**** cleanup ****" && \
- rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/* \
-	/var/tmp/*
+  echo "**** add emby deps *****" && \
+  curl -s https://keyserver.ubuntu.com/pks/lookup?op=get\&search=0x6587ffd6536b8826e88a62547876ae518cbcf2f2 | apt-key add - && \
+  echo "deb http://ppa.launchpad.net/ubuntu-raspi2/ppa-nightly/ubuntu focal main">> /etc/apt/sources.list.d/raspbins.list && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    libomxil-bellagio0 \
+    libomxil-bellagio-bin \
+    libraspberrypi0 && \
+  echo "**** cleanup ****" && \
+  rm -rf \
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/tmp/*
 
 # add local files
 COPY --from=buildstage /app/emby /app/emby
