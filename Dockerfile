@@ -51,7 +51,8 @@ RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
-    mesa-va-drivers && \
+    mesa-va-drivers \
+    netcat && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \
