@@ -33,13 +33,15 @@ RUN \
     /tmp/opt/emby-server/extra/lib/*
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-cd65f39a-ls39
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
+
+ARG DEBIAN_FRONTEND="noninteractive"
 
 # add needed nvidia environment variables for https://github.com/NVIDIA/nvidia-docker
 ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
@@ -49,7 +51,8 @@ RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
-    mesa-va-drivers && \
+    mesa-va-drivers \
+    netcat && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \
