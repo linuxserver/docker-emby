@@ -90,6 +90,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "18.09.22:", desc: "Migrate to s6v3, rebase to Ubuntu Jammy." }
   - { date: "19.05.21:", desc: "Structural changes upstream." }
   - { date: "17.01.21:", desc: "Deprecate `UMASK_SET` in favor of UMASK in baseimage, see above for more information. Remove no longer used mapping for /transcode." }
   - { date: "21.12.20:", desc: "Rebase to Focal, see [here](https://docs.linuxserver.io/faq#my-host-is-incompatible-with-images-based-on-ubuntu-focal) for troubleshooting armhf." }
