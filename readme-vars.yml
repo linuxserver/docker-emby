@@ -89,6 +89,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "25.09.22:", desc: "Update chown behavior." }
   - { date: "16.09.22:", desc: "Migrate to s6v3." }
   - { date: "02.05.22:", desc: "Rebase to Jammy." }
   - { date: "26.03.21:", desc: "Structural changes upstream." }
