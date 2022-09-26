@@ -289,6 +289,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **26.09.22:** - Update chown behavior.
 * **18.09.22:** - Migrate to s6v3, rebase to Ubuntu Jammy.
 * **19.05.21:** - Structural changes upstream.
 * **17.01.21:** - Deprecate `UMASK_SET` in favor of UMASK in baseimage, see above for more information. Remove no longer used mapping for /transcode.
