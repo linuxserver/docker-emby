@@ -289,6 +289,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **25.09.22:** - Update chown behavior.
 * **16.09.22:** - Migrate to s6v3.
 * **02.05.22:** - Rebase to Jammy.
 * **26.03.21:** - Structural changes upstream.

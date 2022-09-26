@@ -2,16 +2,13 @@
 
 # Create folders
 mkdir -p \
-    /data \
-    /transcode
+    /data
 
-# permissions (non-recursive) on config root and folders
-chown abc:abc \
-    /config \
-    /data \
-    /transcode
-
-if [ -n "$(ls -A /data 2>/dev/null)" ]; then
-chown abc:abc \
-    /data/*
+# check Library permissions
+PUID=${PUID:-911}
+if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
+    echo "Change in ownership detected, please be patient while we chown existing files"
+    echo "This could take some time"
+    chown abc:abc -R \
+        /config
 fi
