@@ -58,7 +58,7 @@ libdrm-nouveau22.4.110-1ubuntu1
 libdrm-radeon12.4.110-1ubuntu1
 libedit23.1-20210910-1build1
 libelf10.186-1build1
-libexpat12.4.7-1
+libexpat12.4.7-1ubuntu0.1
 libext2fs21.46.5-2ubuntu1.1
 libffi83.4.2-4
 libgcc-s112.1.0-2ubuntu1~22.04
