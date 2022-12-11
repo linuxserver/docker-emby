@@ -10,7 +10,14 @@ RUN \
   apt-get install -y \
     cpio \
     jq \
-    rpm2cpio && \
+    rpm2cpio \
+    unzip && \  
+  echo "**** install roku bif tool ****" && \
+  curl -o \
+    /tmp/biftool_linux.zip -L \
+    "https://github.com/rokudev/samples/raw/master/utilities/bif%20tool/biftool_linux.zip" && \
+  cd /tmp && \
+  unzip biftool_linux.zip -d /app/biftool_linux && \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby && \
@@ -51,7 +58,9 @@ RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
+    mediainfo \
     mesa-va-drivers \
+    mkvtoolnix \
     netcat && \
   echo "**** cleanup ****" && \
   rm -rf \
@@ -61,6 +70,7 @@ RUN \
 
 # add local files
 COPY --from=buildstage /app/emby /app/emby
+COPY --from=buildstage /app/biftool_linux /usr/bin
 COPY root/ /
 
 # ports and volumes

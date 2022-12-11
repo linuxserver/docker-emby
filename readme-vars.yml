@@ -90,6 +90,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "11.12.22:", desc: "Add support for MediaInfo Plugin on amd64"}
   - { date: "26.09.22:", desc: "Update chown behavior." }
   - { date: "18.09.22:", desc: "Migrate to s6v3, rebase to Ubuntu Jammy." }
   - { date: "19.05.21:", desc: "Structural changes upstream." }
