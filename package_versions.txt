@@ -28,7 +28,7 @@ Microsoft.Extensions.Options.ConfigurationExtensions     6.0.0                  
 Microsoft.Extensions.Primitives                          6.0.0                                    dotnet  
 Microsoft.NETCore.Platforms                              5.0.0                                    dotnet  
 Microsoft.NETCore.Targets                                1.0.1                                    dotnet  
-Microsoft.OpenApi                                        1.6.3                                    dotnet  
+Microsoft.OpenApi                                        1.6.4                                    dotnet  
 Microsoft.Win32.Registry                                 5.0.0                                    dotnet  
 Microsoft.Win32.SystemEvents                             7.0.0                                    dotnet  
 NetVips                                                  2.2.0                                    dotnet  
