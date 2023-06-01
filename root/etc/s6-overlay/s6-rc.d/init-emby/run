@@ -2,13 +2,16 @@
 
 # Create folders
 mkdir -p \
-    /data
+    /data \
+    /tmp/.dotnet/shm
 
 # check Library permissions
 PUID=${PUID:-911}
 if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
     echo "Change in ownership detected, please be patient while we chown existing files"
     echo "This could take some time"
-    chown abc:abc -R \
+    lsiown abc:abc -R \
         /config
 fi
+lsiown abc:abc /tmpnetcore
+chmod 777 /tmp/{.dotnet,.dotnet/shm}
