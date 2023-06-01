@@ -19,7 +19,9 @@ ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 RUN \
   echo "**** install emby ****" && \
   mkdir -p \
-    /app/emby && \
+    /app/emby \
+    /tmpnetcore && \
+  chmod go+w /tmpnetcore && \
   if [ -z ${EMBY_RELEASE+x} ]; then \
     EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
     | jq -r '. | .tag_name'); \
@@ -37,8 +39,7 @@ RUN \
     /tmp/opt/emby-server/extra/lib/* && \
   echo "**** cleanup ****" && \
   rm -rf \
-    /tmp/* && \
-  chmod go+w /tmp
+    /tmp/*
 
 # add local files
 COPY root/ /

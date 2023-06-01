@@ -2,7 +2,8 @@
 
 # Create folders
 mkdir -p \
-    /data
+    /data \
+    /tmp/.dotnet/shm
 
 # check Library permissions
 PUID=${PUID:-911}
@@ -12,3 +13,4 @@ if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
     chown abc:abc -R \
         /config
 fi
+lsiown -R abc:abc /tmp/.dotnet
