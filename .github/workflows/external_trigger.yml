@@ -72,7 +72,7 @@ jobs:
           else
             echo "**** New version ${EXT_RELEASE} found; old version was ${IMAGE_VERSION}. Checking artifacts. . . ****"
             assets=$(curl -u "${{ secrets.CR_USER }}:${{ secrets.CR_PAT }}" -sX GET "https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/tags/${EXT_RELEASE}" | jq -r '.assets[].browser_download_url')
-            if echo "$assets" | grep -q "aarch64.rpm$" && echo "$assets" | grep -q "armv7hl.rpm$" && echo "$assets" | grep -q "x86_64.rpm$"; then
+            if echo "$assets" | grep -q "arm64.deb$" && echo "$assets" | grep -q "armhf.deb$" && echo "$assets" | grep -q "amd64.deb$"; then
               echo "**** All artifacts seem to be published, triggering build ****"
               response=$(curl -iX POST \
                 https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-emby/job/master/buildWithParameters?PACKAGE_CHECK=false \

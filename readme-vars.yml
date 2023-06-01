@@ -90,6 +90,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "31.05.23:", desc: "Use upstream deb packages instead of rpm." }
   - { date: "26.09.22:", desc: "Update chown behavior." }
   - { date: "18.09.22:", desc: "Migrate to s6v3, rebase to Ubuntu Jammy." }
   - { date: "19.05.21:", desc: "Structural changes upstream." }
