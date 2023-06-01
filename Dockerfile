@@ -37,7 +37,8 @@ RUN \
     /tmp/opt/emby-server/extra/lib/* && \
   echo "**** cleanup ****" && \
   rm -rf \
-    /tmp/*
+    /tmp/* && \
+  chmod go+w /tmp
 
 # add local files
 COPY root/ /
