@@ -1,4 +1,3 @@
-
 # syntax=docker/dockerfile:1
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy
