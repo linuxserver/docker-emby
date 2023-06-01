@@ -16,8 +16,8 @@ ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 
 RUN \
   echo "**** add emby deps *****" && \
-  curl -s https://keyserver.ubuntu.com/pks/lookup?op=get\&search=0x6587ffd6536b8826e88a62547876ae518cbcf2f2 | apt-key add - && \
-  echo "deb http://ppa.launchpad.net/ubuntu-raspi2/ppa-nightly/ubuntu focal main">> /etc/apt/sources.list.d/raspbins.list && \
+  curl -s https://keyserver.ubuntu.com/pks/lookup?op=get\&search=0x6587ffd6536b8826e88a62547876ae518cbcf2f2 | gpg --dearmor | tee /usr/share/keyrings/raspbins.gpg >/dev/null && \
+  echo "deb [signed-by=/usr/share/keyrings/raspbins.gpg] http://ppa.launchpad.net/ubuntu-raspi2/ppa-nightly/ubuntu focal main">> /etc/apt/sources.list.d/raspbins.list && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     libomxil-bellagio0 \
