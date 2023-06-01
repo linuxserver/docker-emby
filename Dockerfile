@@ -21,7 +21,6 @@ RUN \
   mkdir -p \
     /app/emby \
     /tmpnetcore && \
-  chmod go+w /tmpnetcore && \
   if [ -z ${EMBY_RELEASE+x} ]; then \
     EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
     | jq -r '. | .tag_name'); \
