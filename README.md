@@ -289,6 +289,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **31.05.23:** - Use upstream deb packages instead of rpm.
 * **26.09.22:** - Update chown behavior.
 * **18.09.22:** - Migrate to s6v3, rebase to Ubuntu Jammy.
 * **19.05.21:** - Structural changes upstream.
