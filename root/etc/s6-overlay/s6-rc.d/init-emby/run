@@ -2,8 +2,7 @@
 
 # Create folders
 mkdir -p \
-    /data \
-    /tmp/.dotnet/shm
+    /data
 
 # check Library permissions
 PUID=${PUID:-911}
@@ -13,5 +12,3 @@ if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
     lsiown abc:abc -R \
         /config
 fi
-lsiown abc:abc /tmpnetcore
-chmod 777 /tmp/{.dotnet,.dotnet/shm}
