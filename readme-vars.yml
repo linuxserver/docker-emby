@@ -89,6 +89,7 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "08.06.23:", desc: "Fix package extraction so it doesn't change /tmp perms." }
   - { date: "31.05.23:", desc: "Use upstream deb packages instead of rpm." }
   - { date: "25.09.22:", desc: "Update chown behavior." }
   - { date: "16.09.22:", desc: "Migrate to s6v3." }
