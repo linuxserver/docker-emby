@@ -26,7 +26,7 @@ RUN \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby \
-    /tmpnetcore && \
+    /tmp/emby && \
   if [ -z ${EMBY_RELEASE+x} ]; then \
     EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
     | jq -r '. | .tag_name'); \
@@ -34,14 +34,14 @@ RUN \
   curl -o \
     /tmp/emby.deb -L \
     "https://github.com/MediaBrowser/Emby.Releases/releases/download/${EMBY_RELEASE}/emby-server-deb_${EMBY_RELEASE}_arm64.deb" && \
-  dpkg-deb -xv /tmp/emby.deb /tmp/ && \
+  dpkg-deb -xv /tmp/emby.deb /tmp/emby/ && \
   mv -t \
     /app/emby/ \
-    /tmp/opt/emby-server/system/* \
-    /tmp/opt/emby-server/lib/* \
-    /tmp/opt/emby-server/bin/ff* \
-    /tmp/opt/emby-server/etc \
-    /tmp/opt/emby-server/extra/lib/* && \
+    /tmp/emby/opt/emby-server/system/* \
+    /tmp/emby/opt/emby-server/lib/* \
+    /tmp/emby/opt/emby-server/bin/ff* \
+    /tmp/emby/opt/emby-server/etc \
+    /tmp/emby/opt/emby-server/extra/lib/* && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/* \

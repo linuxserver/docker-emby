@@ -2,7 +2,6 @@
 
 # env settings
 APP_DIR="/app/emby"
-export TMPDIR="/tmpnetcore"
 export LD_LIBRARY_PATH="${APP_DIR}"
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
 if [ -d "/lib/x86_64-linux-gnu" ]; then
