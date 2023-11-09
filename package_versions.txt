@@ -188,7 +188,7 @@ SharpDX.DXGI                                                4.2.0               
 SharpDX.Direct3D11                                          4.2.0                                    dotnet  
 SharpDX.Direct3D9                                           4.2.0                                    dotnet  
 SharpDX.MediaFoundation                                     4.2.0                                    dotnet  
-Simple Injector                                             5.0.0.0                                  dotnet  
+SimpleInjector                                              5.0.0.0                                  dotnet  
 SkiaSharp                                                   2.80.2.0                                 dotnet  
 StudioImages                                                1.0.3.0                                  dotnet  
 System                                                      6.0.2023.32017                           dotnet  
