@@ -2,18 +2,18 @@
 
 # env settings
 APP_DIR="/app/emby"
-export LD_LIBRARY_PATH="${APP_DIR}"
+export LD_LIBRARY_PATH="${APP_DIR}"/lib
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
 if [ -d "/lib/x86_64-linux-gnu" ]; then
-    export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/dri
+    export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/extra/lib/dri
 fi
 export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
 
 exec \
     s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
-        s6-setuidgid abc /app/emby/EmbyServer \
+        s6-setuidgid abc /app/emby/bin/EmbyServer \
         -programdata /config \
-        -ffdetect /app/emby/ffdetect \
-        -ffmpeg /app/emby/ffmpeg \
-        -ffprobe /app/emby/ffprobe \
+        -ffdetect /app/emby/bin/ffdetect \
+        -ffmpeg /app/emby/bin/ffmpeg \
+        -ffprobe /app/emby/bin/ffprobe \
         -restartexitcode 3
