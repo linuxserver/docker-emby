@@ -2,8 +2,11 @@
 
 # env settings
 APP_DIR="/app/emby"
-export LD_LIBRARY_PATH="${APP_DIR}"/lib
+export LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
+export OCL_ICD_VENDORS="${APP_DIR}"/extra/etc/OpenCL/vendors
+export AMDGPU_IDS="${APP_DIR}"/extra/share/libdrm/amdgpu.ids
+export PCI_IDS_PATH="${APP_DIR}"/share/hwdata/pci.ids
 if [ -d "/lib/x86_64-linux-gnu" ]; then
     export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/extra/lib/dri
 fi
