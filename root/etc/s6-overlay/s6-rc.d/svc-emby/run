@@ -11,7 +11,7 @@ export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
 
 exec \
     s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
-        s6-setuidgid abc /app/emby/bin/EmbyServer \
+        s6-setuidgid abc /app/emby/system/EmbyServer \
         -programdata /config \
         -ffdetect /app/emby/bin/ffdetect \
         -ffmpeg /app/emby/bin/ffmpeg \
