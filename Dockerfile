@@ -30,11 +30,7 @@ RUN \
   dpkg-deb -xv /tmp/emby.deb /tmp/emby/ && \
   mv -t \
     /app/emby/ \
-    /tmp/emby/opt/emby-server/system/* \
-    /tmp/emby/opt/emby-server/lib/* \
-    /tmp/emby/opt/emby-server/bin/ff* \
-    /tmp/emby/opt/emby-server/etc \
-    /tmp/emby/opt/emby-server/extra/lib/* && \
+    /tmp/emby/opt/emby-server/* && \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
