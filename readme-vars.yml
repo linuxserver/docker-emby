@@ -83,6 +83,7 @@ app_setup_block: |
   ```
 # changelog
 changelogs:
+  - {date: "19.01.24:", desc: "Fix tonemapping so it's done with hw acceleration."}
   - {date: "06.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "08.06.23:", desc: "Fix package extraction so it doesn't change /tmp perms."}
   - {date: "31.05.23:", desc: "Use upstream deb packages instead of rpm."}
