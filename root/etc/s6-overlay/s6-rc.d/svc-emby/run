@@ -2,18 +2,21 @@
 
 # env settings
 APP_DIR="/app/emby"
-export LD_LIBRARY_PATH="${APP_DIR}"
+export LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
+export OCL_ICD_VENDORS="${APP_DIR}"/extra/etc/OpenCL/vendors
+export AMDGPU_IDS="${APP_DIR}"/extra/share/libdrm/amdgpu.ids
+export PCI_IDS_PATH="${APP_DIR}"/share/hwdata/pci.ids
 if [ -d "/lib/x86_64-linux-gnu" ]; then
-    export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/dri
+    export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/extra/lib/dri
 fi
 export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
 
 exec \
     s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
-        s6-setuidgid abc /app/emby/EmbyServer \
+        s6-setuidgid abc /app/emby/system/EmbyServer \
         -programdata /config \
-        -ffdetect /app/emby/ffdetect \
-        -ffmpeg /app/emby/ffmpeg \
-        -ffprobe /app/emby/ffprobe \
+        -ffdetect /app/emby/bin/ffdetect \
+        -ffmpeg /app/emby/bin/ffmpeg \
+        -ffprobe /app/emby/bin/ffprobe \
         -restartexitcode 3
