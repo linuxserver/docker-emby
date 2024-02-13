@@ -53,36 +53,34 @@ app_setup_block: |
 
   Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
 
-  Hardware acceleration users for Intel Quicksync and AMD VAAPI will need to mount their /dev/dri video device inside of the container by passing the following command when running or creating the container:
+  ### Hardware Acceleration Enhancements
 
-  ```--device=/dev/dri:/dev/dri```
+  This section lists the enhancements we have made for hardware acceleration in this image specifically.
 
-  We will automatically ensure the abc user inside of the container has the proper permissions to access this device.
+  #### OpenMAX (Raspberry Pi)
 
-  Hardware acceleration users for Nvidia will need to install the container runtime provided by Nvidia on their host, instructions can be found here:
+  Hardware acceleration users for Raspberry Pi MMAL/OpenMAX will need to mount their `/dev/vcsm` and `/dev/vchiq` video devices inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
 
-  https://github.com/NVIDIA/nvidia-docker
-
-  We automatically add the necessary environment variable that will utilise all the features available on a GPU on the host. Once nvidia-docker is installed on your host you will need to re/create the docker container with the nvidia container runtime `--runtime=nvidia` and add an environment variable `-e NVIDIA_VISIBLE_DEVICES=all` (can also be set to a specific gpu's UUID, this can be discovered by running `nvidia-smi --query-gpu=gpu_name,gpu_uuid --format=csv` ). NVIDIA automatically mounts the GPU and drivers from your host into the emby docker.
-
-  ### OpenMAX (Raspberry Pi)
-
-  Hardware acceleration users for Raspberry Pi OpenMAX will need to mount their /dev/vchiq video device inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
   ```
+  --device=/dev/vcsm:/dev/vcsm
   --device=/dev/vchiq:/dev/vchiq
   -v /opt/vc/lib:/opt/vc/lib
   ```
 
-  ### V4L2 (Raspberry Pi)
+  #### V4L2 (Raspberry Pi)
 
-  Hardware acceleration users for Raspberry Pi V4L2 will need to mount their /dev/video1X devices inside of the container by passing the following options when running or creating the container:
+  Hardware acceleration users for Raspberry Pi V4L2 will need to mount their `/dev/video1X` devices inside of the container by passing the following options when running or creating the container:
+
   ```
   --device=/dev/video10:/dev/video10
   --device=/dev/video11:/dev/video11
   --device=/dev/video12:/dev/video12
   ```
+
+readme_hwaccel: true
 # changelog
 changelogs:
+  - {date: "12.02.24:", desc: "Use universal hardware acceleration blurb"}
   - {date: "19.01.24:", desc: "Fix tonemapping so it's done with hw acceleration."}
   - {date: "06.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
   - {date: "08.06.23:", desc: "Fix package extraction so it doesn't change /tmp perms."}
