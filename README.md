@@ -74,7 +74,7 @@ Emby has very complete and verbose documentation located [here](https://github.c
 
 ### Hardware Acceleration Enhancements
 
-This list out the enhancements we have explicit made for hardware acceleration in this image.
+This section lists the enhancements we have made for hardware acceleration in this image specifically.
 
 #### OpenMAX (Raspberry Pi)
 
