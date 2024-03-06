@@ -15,6 +15,17 @@ ARG DEBIAN_FRONTEND="noninteractive"
 ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 
 RUN \
+  echo "**** install build packages ****" && \
+  apk add --no-cache \
+    git \
+    autoconf \
+    libtool \
+    build-essential \
+    libargtable2-dev \
+    libavformat-dev \
+    libsdl1.2-dev
+
+RUN \
   echo "**** add emby deps *****" && \
   curl -s https://keyserver.ubuntu.com/pks/lookup?op=get\&search=0x6587ffd6536b8826e88a62547876ae518cbcf2f2 | gpg --dearmor | tee /usr/share/keyrings/raspbins.gpg >/dev/null && \
   echo "deb [signed-by=/usr/share/keyrings/raspbins.gpg] http://ppa.launchpad.net/ubuntu-raspi2/ppa-nightly/ubuntu focal main">> /etc/apt/sources.list.d/raspbins.list && \
@@ -43,6 +54,20 @@ RUN \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
+
+RUN \
+  echo "***** compile comskip ****" && \
+  git clone https://github.com/erikkaashoek/Comskip /tmp/comskip && \
+  cd /tmp/comskip && \
+  ./autogen.sh && \
+  ./configure \
+    --bindir=/usr/bin \
+    --sysconfdir=/config/comskip && \
+  make -j 2 && \
+  make DESTDIR=/tmp/comskip-build install
+
+# copy local files and buildstage artifacts
+COPY --from=buildstage /tmp/comskip-build/usr/ /usr/
 
 # add local files
 COPY root/ /
