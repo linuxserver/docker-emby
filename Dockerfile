@@ -20,6 +20,7 @@ RUN \
   apk add --no-cache \
     autoconf \
     libtool \
+    git \
     build-essential \
     libargtable2-dev \
     libavformat-dev \
