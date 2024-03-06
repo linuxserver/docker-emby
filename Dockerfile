@@ -16,6 +16,16 @@ ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 
 # install packages
 RUN \
+  echo "**** install runtime packages ****" && \
+  apk add --no-cache \
+    autoconf \
+    libtool \
+    build-essential \
+    libargtable2-dev \
+    libavformat-dev \
+    libsdl1.2-dev
+    
+RUN \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby \
@@ -34,6 +44,20 @@ RUN \
   echo "**** cleanup ****" && \
   rm -rf \
     /tmp/*
+    
+RUN \
+  echo "***** compile comskip ****" && \
+  git clone https://github.com/erikkaashoek/Comskip /tmp/comskip && \
+  cd /tmp/comskip && \
+  ./autogen.sh && \
+  ./configure \
+    --bindir=/usr/bin \
+    --sysconfdir=/config/comskip && \
+  make -j 2 && \
+  make DESTDIR=/tmp/comskip-build install
+  
+# copy local files and buildstage artifacts
+COPY --from=buildstage /tmp/comskip-build/usr/ /usr/
 
 # add local files
 COPY root/ /
