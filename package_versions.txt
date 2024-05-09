@@ -382,9 +382,9 @@ apt-utils                                                   2.4.12              
 base-files                                                  12ubuntu4.6                                             deb                       
 base-passwd                                                 3.5.52build1                                            deb                       
 bash                                                        5.1-6ubuntu1.1                                          deb                       
-bash                                                        5.1.16                                                  binary                    
 bsdutils                                                    1:2.37.2-4ubuntu3.4                                     deb                       
 ca-certificates                                             20230311ubuntu0.22.04.1                                 deb                       
+catatonit                                                   0.1.7-1                                                 deb                       
 coreutils                                                   8.32-4.1ubuntu1.2                                       deb                       
 cron                                                        3.0pl1-137ubuntu3                                       deb                       
 curl                                                        7.81.0-1ubuntu1.16                                      deb                       
