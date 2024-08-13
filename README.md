@@ -138,7 +138,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/library:/config
+      - /path/to/emby/library:/config
       - /path/to/tvshows:/data/tvshows
       - /path/to/movies:/data/movies
       - /opt/vc/lib:/opt/vc/lib #optional
@@ -164,7 +164,7 @@ docker run -d \
   -e TZ=Etc/UTC \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
-  -v /path/to/library:/config \
+  -v /path/to/emby/library:/config \
   -v /path/to/tvshows:/data/tvshows \
   -v /path/to/movies:/data/movies \
   -v /opt/vc/lib:/opt/vc/lib `#optional` \
@@ -359,6 +359,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **13.08.24:** - Rebase to Ubuntu Noble.
 * **12.02.24:** - Use universal hardware acceleration blurb
 * **19.01.24:** - Fix tonemapping so it's done with hw acceleration.
 * **06.07.23:** - Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)
