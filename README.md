@@ -138,7 +138,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/https://emby.media//library:/config
+      - /path/to/emby/library:/config
       - /path/to/tvshows:/data/tvshows
       - /path/to/movies:/data/movies
       - /opt/vc/lib:/opt/vc/lib #optional
@@ -164,7 +164,7 @@ docker run -d \
   -e TZ=Etc/UTC \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
-  -v /path/to/https://emby.media//library:/config \
+  -v /path/to/emby/library:/config \
   -v /path/to/tvshows:/data/tvshows \
   -v /path/to/movies:/data/movies \
   -v /opt/vc/lib:/opt/vc/lib `#optional` \

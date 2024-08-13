@@ -20,7 +20,7 @@ common_param_env_vars_enabled: true #PGID, PUID, etc
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - {vol_path: "/config", vol_host_path: "/path/to/{{ project_url }}/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*"}
+  - {vol_path: "/config", vol_host_path: "/path/to/{{ project_name }}/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*"}
   - {vol_path: "/data/tvshows", vol_host_path: "/path/to/tvshows", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
   - {vol_path: "/data/movies", vol_host_path: "/path/to/movies", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
 param_usage_include_ports: true
