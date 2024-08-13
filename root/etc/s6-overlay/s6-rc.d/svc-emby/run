@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bash
+# shellcheck shell=bash
 
 # env settings
 APP_DIR="/app/emby"
@@ -7,7 +8,7 @@ export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
 export OCL_ICD_VENDORS="${APP_DIR}"/extra/etc/OpenCL/vendors
 export AMDGPU_IDS="${APP_DIR}"/extra/share/libdrm/amdgpu.ids
 export PCI_IDS_PATH="${APP_DIR}"/share/hwdata/pci.ids
-if [ -d "/lib/x86_64-linux-gnu" ]; then
+if [[ -d "/lib/x86_64-linux-gnu" ]]; then
     export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/extra/lib/dri
 fi
 export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
