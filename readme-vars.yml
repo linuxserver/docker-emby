@@ -20,18 +20,13 @@ common_param_env_vars_enabled: true #PGID, PUID, etc
 param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
-  - {vol_path: "/config", vol_host_path: "/path/to/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*"}
+  - {vol_path: "/config", vol_host_path: "/path/to/{{ project_url }}/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*"}
   - {vol_path: "/data/tvshows", vol_host_path: "/path/to/tvshows", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
   - {vol_path: "/data/movies", vol_host_path: "/path/to/movies", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
 param_usage_include_ports: true
 param_ports:
   - {external_port: "8096", internal_port: "8096", port_desc: "Http webUI."}
-param_usage_include_env: true
-param_env_vars:
-  - {env_var: "TZ", env_value: "Europe/London", desc: "Specify a timezone to use EG Europe/London"}
 # optional container parameters
-opt_param_usage_include_env: false
-opt_param_env_vars:
 opt_param_usage_include_vols: true
 opt_param_volumes:
   - {vol_path: "/opt/vc/lib", vol_host_path: "/opt/vc/lib", desc: "Path for Raspberry Pi OpenMAX libs *optional*."}
@@ -80,6 +75,7 @@ app_setup_block: |
 readme_hwaccel: true
 # changelog
 changelogs:
+  - {date: "13.08.24:", desc: "Rebase to Ubuntu Noble."}
   - {date: "12.02.24:", desc: "Use universal hardware acceleration blurb"}
   - {date: "19.01.24:", desc: "Fix tonemapping so it's done with hw acceleration."}
   - {date: "06.07.23:", desc: "Deprecate armhf. As announced [here](https://www.linuxserver.io/blog/a-farewell-to-arm-hf)"}
