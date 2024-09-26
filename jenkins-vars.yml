@@ -6,7 +6,13 @@ external_type: custom_json
 release_type: prerelease
 release_tag: beta
 ls_branch: beta
-custom_external_trigger: true
+external_artifact_check: |
+  assets=$(curl -u "${{ '{{' }} secrets.CR_USER {{ '}}' }}:${{ '{{' }} secrets.CR_PAT {{ '}}' }}" -sX GET "https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/tags/${EXT_RELEASE}" | jq -r '.assets[].browser_download_url')
+  if grep -q "emby-server-deb_${EXT_RELEASE}_arm64.deb$" <<< "${assets}" && grep -q "emby-server-deb_${EXT_RELEASE}_amd64.deb$" <<< "${assets}"; then
+    artifacts_found="true"
+  else
+    artifacts_found="false"
+  fi
 repo_vars:
   - JSON_URL = 'https://api.github.com/repos/MediaBrowser/Emby.Releases/releases'
   - JSON_PATH = 'first(.[] | select(.prerelease==true )) | .tag_name'
