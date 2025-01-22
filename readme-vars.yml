@@ -5,6 +5,7 @@ project_name: emby
 project_url: "https://emby.media/"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/emby-logo.png"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_categories: "Media Servers,Music,Audiobooks"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) organizes video, music, live TV, and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices. This container is packaged as a standalone emby Media Server."
 # supported architectures
 available_architectures:
