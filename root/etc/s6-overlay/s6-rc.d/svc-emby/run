@@ -12,6 +12,7 @@ if [ -d "/lib/x86_64-linux-gnu" ]; then
     export LIBVA_DRIVERS_PATH=/usr/lib/x86_64-linux-gnu/dri:"${APP_DIR}"/extra/lib/dri
 fi
 export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
+export HOME="/config"
 
 exec \
     s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \

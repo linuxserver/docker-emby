@@ -116,6 +116,7 @@ init_diagram: |
   "emby:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "12.01.26:", desc: "Set home to /config."}
   - {date: "13.08.24:", desc: "Rebase to Ubuntu Noble."}
   - {date: "12.02.24:", desc: "Use universal hardware acceleration blurb"}
   - {date: "19.01.24:", desc: "Fix tonemapping so it's done with hw acceleration."}

@@ -360,6 +360,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **12.01.26:** - Set home to /config.
 * **13.08.24:** - Rebase to Ubuntu Noble.
 * **12.02.24:** - Use universal hardware acceleration blurb
 * **19.01.24:** - Fix tonemapping so it's done with hw acceleration.
