@@ -16,6 +16,10 @@ ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 ENV ATTACHED_DEVICES_PERMS="/dev/dri /dev/dvb /dev/vchiq /dev/video1? -type c"
 
 RUN \
+  echo "**** add emby deps ****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    libexpat1 && \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby \
