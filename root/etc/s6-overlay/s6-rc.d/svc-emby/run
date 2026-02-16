@@ -3,7 +3,6 @@
 
 # env settings
 APP_DIR="/app/emby"
-export LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
 export OCL_ICD_VENDORS="${APP_DIR}"/extra/etc/OpenCL/vendors
 export AMDGPU_IDS="${APP_DIR}"/extra/share/libdrm/amdgpu.ids
@@ -16,7 +15,7 @@ export HOME="/config"
 
 exec \
     s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
-        s6-setuidgid abc /app/emby/system/EmbyServer \
+        cd /app/emby env LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib s6-setuidgid abc /app/emby/system/EmbyServer \
         -programdata /config \
         -ffdetect /app/emby/bin/ffdetect \
         -ffmpeg /app/emby/bin/ffmpeg \
