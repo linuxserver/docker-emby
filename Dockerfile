@@ -17,13 +17,17 @@ ENV ATTACHED_DEVICES_PERMS="/dev/dri /dev/dvb /dev/vchiq /dev/video1? -type c"
 
 # install packages
 RUN \
+  echo "**** add emby deps *****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    libexpat1 \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby \
     /tmp/emby && \
   if [ -z ${EMBY_RELEASE+x} ]; then \
     EMBY_RELEASE=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
-    | jq -r '. | .tag_name'); \
+      | jq -r '. | .tag_name'); \
   fi && \
   curl -o \
     /tmp/emby.deb -L \
