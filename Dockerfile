@@ -20,7 +20,7 @@ RUN \
   echo "**** add emby deps *****" && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
-    libexpat1 \
+    libexpat1 && \
   echo "**** install emby ****" && \
   mkdir -p \
     /app/emby \
