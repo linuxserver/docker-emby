@@ -114,6 +114,7 @@ init_diagram: |
   "emby:beta" <- Base Images
 # changelog
 changelogs:
+  - {date: "19.06.26:", desc: "Point OCL_ICD_VENDORS at /app/emby/etc/OpenCL/vendors so Intel OpenCL works (fixes HDR tonemapping falling back to software)."}
   - {date: "19.06.26:", desc: "Add /app/emby/lib/dri to LIBVA_DRIVERS_PATH so Intel VA-API/QSV hardware transcoding works out of the box."}
   - {date: "12.01.26:", desc: "Set home to /config."}
   - {date: "13.08.24:", desc: "Rebase to Ubuntu Noble."}
