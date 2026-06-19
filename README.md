@@ -360,6 +360,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **19.06.26:** - Add /app/emby/lib/dri to LIBVA_DRIVERS_PATH so Intel VA-API/QSV hardware transcoding works out of the box.
 * **12.01.26:** - Set home to /config.
 * **13.08.24:** - Rebase to Ubuntu Noble.
 * **12.02.24:** - Use universal hardware acceleration blurb
