@@ -4,7 +4,7 @@
 # env settings
 APP_DIR="/app/emby"
 export FONTCONFIG_PATH="${APP_DIR}"/etc/fonts
-export OCL_ICD_VENDORS="${APP_DIR}"/extra/etc/OpenCL/vendors
+export OCL_ICD_VENDORS="${APP_DIR}"/etc/OpenCL/vendors
 export AMDGPU_IDS="${APP_DIR}"/extra/share/libdrm/amdgpu.ids
 export PCI_IDS_PATH="${APP_DIR}"/share/hwdata/pci.ids
 if [[ -d "/lib/x86_64-linux-gnu" ]]; then
