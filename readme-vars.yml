@@ -5,6 +5,7 @@ project_name: emby
 project_url: "https://emby.media/"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/emby-logo.png"
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_categories: "Media Servers,Music,Audiobooks"
 project_blurb: "[{{ project_name|capitalize }}]({{ project_url }}) organizes video, music, live TV, and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices. This container is packaged as a standalone emby Media Server."
 # supported architectures
 available_architectures:
@@ -21,7 +22,7 @@ param_container_name: "{{ project_name }}"
 param_usage_include_vols: true
 param_volumes:
   - {vol_path: "/config", vol_host_path: "/path/to/{{ project_name }}/library", desc: "Emby data storage location. *This can grow very large, 50gb+ is likely for a large collection.*"}
-  - {vol_path: "/data/tvshows", vol_host_path: "/path/to/tvseries", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
+  - {vol_path: "/data/tvshows", vol_host_path: "/path/to/tvshows", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
   - {vol_path: "/data/movies", vol_host_path: "/path/to/movies", desc: "Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc."}
 param_usage_include_ports: true
 param_ports:
@@ -40,36 +41,13 @@ opt_param_devices:
 opt_param_usage_include_ports: true
 opt_param_ports:
   - {external_port: "8920", internal_port: "8920", port_desc: "Https webUI (you need to setup your own certificate)."}
+unraid_template_sync: false
 # application setup block
 app_setup_block_enabled: true
 app_setup_block: |
   Webui can be found at `http://<your-ip>:8096`
 
   Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
-
-  ### Hardware Acceleration Enhancements
-
-  This section lists the enhancements we have made for hardware acceleration in this image specifically.
-
-  #### OpenMAX (Raspberry Pi)
-
-  Hardware acceleration users for Raspberry Pi MMAL/OpenMAX will need to mount their `/dev/vcsm` and `/dev/vchiq` video devices inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
-
-  ```text
-  --device=/dev/vcsm:/dev/vcsm
-  --device=/dev/vchiq:/dev/vchiq
-  -v /opt/vc/lib:/opt/vc/lib
-  ```
-
-  #### V4L2 (Raspberry Pi)
-
-  Hardware acceleration users for Raspberry Pi V4L2 will need to mount their `/dev/video1X` devices inside of the container by passing the following options when running or creating the container:
-
-  ```text
-  --device=/dev/video10:/dev/video10
-  --device=/dev/video11:/dev/video11
-  --device=/dev/video12:/dev/video12
-  ```
 readme_hwaccel: true
 # init diagram
 init_diagram: |
@@ -114,6 +92,7 @@ init_diagram: |
   "emby:beta" <- Base Images
 # changelog
 changelogs:
+  - {date: "14.07.26:", desc: "Rebase to Ubuntu Resolute."}
   - {date: "19.06.26:", desc: "Point OCL_ICD_VENDORS at /app/emby/etc/OpenCL/vendors so Intel OpenCL works (fixes HDR tonemapping falling back to software)."}
   - {date: "19.06.26:", desc: "Add /app/emby/lib/dri to LIBVA_DRIVERS_PATH so Intel VA-API/QSV hardware transcoding works out of the box."}
   - {date: "12.01.26:", desc: "Set home to /config."}
