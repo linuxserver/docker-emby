@@ -69,30 +69,6 @@ Webui can be found at `http://<your-ip>:8096`
 
 Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
 
-### Hardware Acceleration Enhancements
-
-This section lists the enhancements we have made for hardware acceleration in this image specifically.
-
-#### OpenMAX (Raspberry Pi)
-
-Hardware acceleration users for Raspberry Pi MMAL/OpenMAX will need to mount their `/dev/vcsm` and `/dev/vchiq` video devices inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
-
-```text
---device=/dev/vcsm:/dev/vcsm
---device=/dev/vchiq:/dev/vchiq
--v /opt/vc/lib:/opt/vc/lib
-```
-
-#### V4L2 (Raspberry Pi)
-
-Hardware acceleration users for Raspberry Pi V4L2 will need to mount their `/dev/video1X` devices inside of the container by passing the following options when running or creating the container:
-
-```text
---device=/dev/video10:/dev/video10
---device=/dev/video11:/dev/video11
---device=/dev/video12:/dev/video12
-```
-
 ### Hardware Acceleration
 
 Many desktop applications need access to a GPU to function properly and even some Desktop Environments have compositor effects that will not function without a GPU. However this is not a hard requirement and all base images will function without a video device mounted into the container.
@@ -139,7 +115,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - /path/to/emby/library:/config
-      - /path/to/tvseries:/data/tvshows
+      - /path/to/tvshows:/data/tvshows
       - /path/to/movies:/data/movies
       - /opt/vc/lib:/opt/vc/lib #optional
     ports:
@@ -165,7 +141,7 @@ docker run -d \
   -p 8096:8096 \
   -p 8920:8920 `#optional` \
   -v /path/to/emby/library:/config \
-  -v /path/to/tvseries:/data/tvshows \
+  -v /path/to/tvshows:/data/tvshows \
   -v /path/to/movies:/data/movies \
   -v /opt/vc/lib:/opt/vc/lib `#optional` \
   --device /dev/dri:/dev/dri `#optional` \
@@ -360,6 +336,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.07.26:** - Rebase to Ubuntu Resolute.
 * **19.06.26:** - Point OCL_ICD_VENDORS at /app/emby/etc/OpenCL/vendors so Intel OpenCL works (fixes HDR tonemapping falling back to software).
 * **19.06.26:** - Add /app/emby/lib/dri to LIBVA_DRIVERS_PATH so Intel VA-API/QSV hardware transcoding works out of the box.
 * **12.01.26:** - Set home to /config.
