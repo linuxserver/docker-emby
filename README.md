@@ -69,20 +69,6 @@ Webui can be found at `http://<your-ip>:8096`
 
 Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
 
-### Hardware Acceleration Enhancements
-
-This section lists the enhancements we have made for hardware acceleration in this image specifically.
-
-#### V4L2 (Raspberry Pi)
-
-Hardware acceleration users for Raspberry Pi V4L2 will need to mount their `/dev/video1X` devices inside of the container by passing the following options when running or creating the container:
-
-```
---device=/dev/video10:/dev/video10
---device=/dev/video11:/dev/video11
---device=/dev/video12:/dev/video12
-```
-
 ### Hardware Acceleration
 
 Many desktop applications need access to a GPU to function properly and even some Desktop Environments have compositor effects that will not function without a GPU. However this is not a hard requirement and all base images will function without a video device mounted into the container.
@@ -137,7 +123,6 @@ services:
       - 8920:8920 #optional
     devices:
       - /dev/dri:/dev/dri #optional
-      - /dev/vchiq:/dev/vchiq #optional
       - /dev/video10:/dev/video10 #optional
       - /dev/video11:/dev/video11 #optional
       - /dev/video12:/dev/video12 #optional
@@ -159,7 +144,6 @@ docker run -d \
   -v /path/to/movies:/data/movies \
   -v /opt/vc/lib:/opt/vc/lib `#optional` \
   --device /dev/dri:/dev/dri `#optional` \
-  --device /dev/vchiq:/dev/vchiq `#optional` \
   --device /dev/video10:/dev/video10 `#optional` \
   --device /dev/video11:/dev/video11 `#optional` \
   --device /dev/video12:/dev/video12 `#optional` \
@@ -183,7 +167,6 @@ Containers are configured using parameters passed at runtime (such as those abov
 | `-v /data/movies` | Media goes here. Add as many as needed e.g. `/data/movies`, `/data/tv`, etc. |
 | `-v /opt/vc/lib` | Path for Raspberry Pi OpenMAX libs *optional*. |
 | `--device /dev/dri` | Only needed if you want to use your Intel or AMD GPU for hardware accelerated video encoding (vaapi). |
-| `--device /dev/vchiq` | Only needed if you want to use your Raspberry Pi OpenMax video encoding (Bellagio). |
 | `--device /dev/video10` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
 | `--device /dev/video11` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
 | `--device /dev/video12` | Only needed if you want to use your Raspberry Pi V4L2 video encoding. |
