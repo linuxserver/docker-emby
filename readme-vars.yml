@@ -86,7 +86,7 @@ init_diagram: |
     svc-emby -> legacy-services
   }
   Base Images: {
-    "baseimage-ubuntu:noble"
+    "baseimage-ubuntu:resolute"
   }
   "emby:latest" <- Base Images
 # changelog
