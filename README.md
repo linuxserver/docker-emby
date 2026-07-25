@@ -73,16 +73,6 @@ Emby has very complete and verbose documentation located [here](https://github.c
 
 This section lists the enhancements we have made for hardware acceleration in this image specifically.
 
-#### OpenMAX (Raspberry Pi)
-
-Hardware acceleration users for Raspberry Pi MMAL/OpenMAX will need to mount their `/dev/vcsm` and `/dev/vchiq` video devices inside of the container and their system OpenMax libs by passing the following options when running or creating the container:
-
-```
---device=/dev/vcsm:/dev/vcsm
---device=/dev/vchiq:/dev/vchiq
--v /opt/vc/lib:/opt/vc/lib
-```
-
 #### V4L2 (Raspberry Pi)
 
 Hardware acceleration users for Raspberry Pi V4L2 will need to mount their `/dev/video1X` devices inside of the container by passing the following options when running or creating the container:
@@ -360,6 +350,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.07.26:** - Rebase to Ubuntu Resolute.
 * **12.01.26:** - Set home to /config.
 * **13.08.24:** - Rebase to Ubuntu Noble.
 * **12.02.24:** - Use universal hardware acceleration blurb

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-ubuntu:noble
+FROM ghcr.io/linuxserver/baseimage-ubuntu:resolute
 
 # set version label
 ARG BUILD_DATE
@@ -15,7 +15,6 @@ ARG DEBIAN_FRONTEND="noninteractive"
 ENV NVIDIA_DRIVER_CAPABILITIES="compute,video,utility"
 ENV ATTACHED_DEVICES_PERMS="/dev/dri /dev/dvb /dev/vchiq /dev/video1? -type c"
 
-# install packages
 RUN \
   echo "**** add emby deps *****" && \
   apt-get update && \
