@@ -206,10 +206,10 @@ libss2                                                  1.47.2-3ubuntu4         
 libssh2-1t64                                            1.11.1-1ubuntu0.26.04.3                deb          
 libssl3t64                                              3.5.5-1ubuntu3.3                       deb          
 libstdc++6                                              16-20260322-1ubuntu1                   deb          
-libsystemd0                                             259.5-0ubuntu3                         deb          
+libsystemd0                                             259.5-0ubuntu3.4                       deb          
 libtasn1-6                                              4.21.0-2                               deb          
 libtinfo6                                               6.6+20251231-1                         deb          
-libudev1                                                259.5-0ubuntu3                         deb          
+libudev1                                                259.5-0ubuntu3.4                       deb          
 libunistring5                                           1.3-2build1                            deb          
 libuuid1                                                2.41.3-3ubuntu2                        deb          
 libxxhash0                                              0.8.3-2build1                          deb          
@@ -237,7 +237,7 @@ rust-coreutils                                          0.8.0-0ubuntu3          
 sed                                                     4.9-2ubuntu1                           deb          
 sensible-utils                                          0.0.26build1                           deb          
 stdlib                                                  go1.26.5                               go-module    
-systemd-standalone-sysusers                             259.5-0ubuntu3                         deb          
+systemd-standalone-sysusers                             259.5-0ubuntu3.4                       deb          
 sysvinit-utils                                          3.15-5ubuntu1                          deb          
 tar                                                     1.35+dfsg-4ubuntu0.4                   deb          
 tzdata                                                  2026c-0ubuntu0.26.04.1                 deb          
