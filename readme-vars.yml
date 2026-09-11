@@ -91,6 +91,7 @@ init_diagram: |
   "emby:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "11.09.26:", desc: "Update lib paths to fix hw transcoding."}
   - {date: "14.07.26:", desc: "Rebase to Ubuntu Resolute."}
   - {date: "12.01.26:", desc: "Set home to /config."}
   - {date: "13.08.24:", desc: "Rebase to Ubuntu Noble."}
