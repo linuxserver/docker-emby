@@ -333,6 +333,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **11.09.26:** - Fix AMDGPU_IDS_PATH so libdrm can find amdgpu.ids (the previous AMDGPU_IDS pointed at a non-existent path and was unread).
 * **14.07.26:** - Rebase to Ubuntu Resolute.
 * **19.06.26:** - Point OCL_ICD_VENDORS at /app/emby/etc/OpenCL/vendors so Intel OpenCL works (fixes HDR tonemapping falling back to software).
 * **19.06.26:** - Add /app/emby/lib/dri to LIBVA_DRIVERS_PATH so Intel VA-API/QSV hardware transcoding works out of the box.
