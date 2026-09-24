@@ -154,7 +154,7 @@ libcrypt1                                               1:4.5.1-1               
 libcurl4t64                                             8.18.0-1ubuntu2.5                      deb          
 libdb5.3t64                                             5.3.28+dfsg2-10ubuntu1                 deb          
 libdebconfclient0                                       0.280ubuntu1                           deb          
-libexpat1                                               2.7.4-1ubuntu0.1                       deb          
+libexpat1                                               2.7.4-1ubuntu0.2                       deb          
 libext2fs2t64                                           1.47.2-3ubuntu4                        deb          
 libffi8                                                 3.5.2-4                                deb          
 libgcc-s1                                               16-20260322-1ubuntu1                   deb          
@@ -201,7 +201,7 @@ libsemanage-common                                      3.9-1build1             
 libsemanage2                                            3.9-1build1                            deb          
 libsepol2                                               3.9-2                                  deb          
 libsmartcols1                                           2.41.3-3ubuntu2.2                      deb          
-libsqlite3-0                                            3.46.1-9ubuntu0.2                      deb          
+libsqlite3-0                                            3.46.1-9ubuntu0.3                      deb          
 libss2                                                  1.47.2-3ubuntu4                        deb          
 libssh2-1t64                                            1.11.1-1ubuntu0.26.04.4                deb          
 libssl3t64                                              3.5.5-1ubuntu3.5                       deb          
@@ -233,7 +233,7 @@ publicsuffix                                            20260129.1928-1         
 readline-common                                         8.3-4                                  deb          
 runtimepack.Microsoft.AspNetCore.App.Runtime.linux-x64  8.0.28                                 dotnet       
 runtimepack.Microsoft.NETCore.App.Runtime.linux-x64     8.0.28                                 dotnet       
-rust-coreutils                                          0.8.0-0ubuntu3                         deb          
+rust-coreutils                                          0.10.0-1ubuntu2~26.04.1                deb          
 sed                                                     4.9-2ubuntu1                           deb          
 sensible-utils                                          0.0.26build1                           deb          
 stdlib                                                  go1.26.7                               go-module    
