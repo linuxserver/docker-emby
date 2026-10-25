@@ -48,6 +48,12 @@ app_setup_block: |
 
   Emby has very complete and verbose documentation located [here](https://github.com/MediaBrowser/Wiki/wiki) .
 readme_hwaccel: true
+readonly_supported: true
+readonly_message: |
+  * Transcode directory must be mounted to a host path or tmpfs.
+nonroot_supported: true
+nonroot_message: |
+  * Transcode directory must be mounted to a host path or tmpfs.
 # init diagram
 init_diagram: |
   "emby:latest": {
@@ -91,6 +97,7 @@ init_diagram: |
   "emby:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "25.10.26:", desc: "Add read-only and non-root support."}
   - {date: "11.09.26:", desc: "Update lib paths to fix hw transcoding."}
   - {date: "14.07.26:", desc: "Rebase to Ubuntu Resolute."}
   - {date: "12.01.26:", desc: "Set home to /config."}
