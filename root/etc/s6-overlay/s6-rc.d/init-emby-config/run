@@ -1,15 +1,19 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-# Create folders
-mkdir -p \
-    /data
+if [[ -z ${LSIO_READ_ONLY_FS} ]] && [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    # Create folders
+    mkdir -p \
+        /data
+fi
 
-# check Library permissions
-PUID=${PUID:-911}
-if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
-    echo "Change in ownership detected, please be patient while we chown existing files"
-    echo "This could take some time"
-    lsiown -R abc:abc \
-        /config
+if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    # check Library permissions
+    PUID=${PUID:-911}
+    if [ -d /config/config ] && [ ! "$(stat -c %u /config/config)" = "$PUID" ]; then
+        echo "Change in ownership detected, please be patient while we chown existing files"
+        echo "This could take some time"
+        lsiown -R abc:abc \
+            /config
+    fi
 fi
