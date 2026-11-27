@@ -13,11 +13,22 @@ fi
 export SSL_CERT_FILE="${APP_DIR}"/etc/ssl/certs/ca-certificates.crt
 export HOME="/config"
 
-exec \
-    s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
-        cd /app/emby env LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib s6-setuidgid abc /app/emby/system/EmbyServer \
-        -programdata /config \
-        -ffdetect /app/emby/bin/ffdetect \
-        -ffmpeg /app/emby/bin/ffmpeg \
-        -ffprobe /app/emby/bin/ffprobe \
-        -restartexitcode 3
+if [[ -z ${LSIO_NON_ROOT_USER} ]]; then
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
+            cd /app/emby env LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib s6-setuidgid abc /app/emby/system/EmbyServer \
+            -programdata /config \
+            -ffdetect /app/emby/bin/ffdetect \
+            -ffmpeg /app/emby/bin/ffmpeg \
+            -ffprobe /app/emby/bin/ffprobe \
+            -restartexitcode 3
+else
+    exec \
+        s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost 8096" \
+            cd /app/emby env LD_LIBRARY_PATH="${APP_DIR}"/lib:"${APP_DIR}"/extra/lib /app/emby/system/EmbyServer \
+            -programdata /config \
+            -ffdetect /app/emby/bin/ffdetect \
+            -ffmpeg /app/emby/bin/ffmpeg \
+            -ffprobe /app/emby/bin/ffprobe \
+            -restartexitcode 3
+fi
